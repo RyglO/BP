@@ -1,2 +1,2 @@
 # BP
-By ondřej Rygl, 223327 
+By Ondřej Rygl, 223327 
