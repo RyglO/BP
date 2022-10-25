@@ -4,4 +4,4 @@ from django.http import HttpResponse
 
 
 def main(requst):
-    return HttpResponse("<h1>sup bitch<h1>")
+    return HttpResponse("<h1>Stránka pro API, TBD<h1>")
