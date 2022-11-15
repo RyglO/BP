@@ -34,16 +34,22 @@ export default class LoginPage extends Component {
             password: e.target.value,
         });
     }
-    handleLoginButton(){
+    handleLoginButton() {
         const requestOptions = {
-            method: "POST",
-            heather: {"Content-Type": "application/json"},
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
             body: JSON.stringify({
-                email: this.state.email,
-                password: this.state.password
-            })
+                "email": this.state.email,
+                "password": this.state.password,
+            }),
         };
-        fetch("api/login", requestOptions).then((response) => response.json()).then((data) => console.log(data));
+        fetch("api/login", requestOptions)
+        .then((response) => 
+        response.json()).
+        then((data) => 
+        console.log(data));
     }
 
 
