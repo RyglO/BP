@@ -10,5 +10,5 @@ def thingsboard_login(email, password):
         'username': email,
         'password': password
     }).json()
-    print(response)
+    #print(response)
     return response

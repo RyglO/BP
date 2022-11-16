@@ -43,12 +43,11 @@ export default class LoginPage extends Component {
         };
         fetch("api/login", requestOptions)
         .then((response) => 
-        response.json()).
-        then((data) => 
+        response.json())
+         .then((data) =>   
         console.log(data));
+        
     }
-
-
     render(){
 
         return( //<h1> Text</h1> 
