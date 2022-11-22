@@ -6,9 +6,9 @@ from rest_framework.response import Response
 
 
 def thingsboard_login(email, password):
-    response = post('https://wattee.net/api/auth/login',data={
+    response = post('https://wattee.net/api/auth/login',json={
         'username': email,
         'password': password
     }).json()
-    #print(response)
+    print(response)
     return response

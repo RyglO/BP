@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {render} from "react-dom";
-import HomePage from './HomePage';
+import Router from './Router';
 import LoginPage from './LoginPage';
 import Hotbar from './Hotbar';
 
@@ -14,7 +14,7 @@ export default class App extends Component{
         return (
         <div> 
             <Hotbar />
-            <HomePage />
+            <Router />
         </div>
         );
     }
