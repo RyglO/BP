@@ -14,9 +14,9 @@ def main(requst):
     return HttpResponse("<h1>Stránka pro API, TBD<h1>")
 
 class LoginHandle(APIView):
-    email = 'email'
-    password = 'password'
-    serializer_class = LoginSerializer
+    # email = 'email'
+    # password = 'password'
+    # serializer_class = LoginSerializer
 
     def post(self, request, format=None):
         dct = json.load(request)
@@ -29,3 +29,17 @@ class LoginHandle(APIView):
         #     return Response({'Unauthorized': 'User account is not active'}, status=status.HTTP_401_UNAUTHORIZED)
 
         # return Response({'Bad Request': 'Invalid post data, did not find a code key'}, status=status.HTTP_400_BAD_REQUEST)  
+
+class UsersHandle(APIView):
+
+    def get(self, request, format=None):
+        dct = json.load(request)
+        response = thingsboard_getUsers(dct["JFTtoken"], dct["userSearch"]) #tbd podle api callu z frontendu
+        return Response(response)
+
+class DevicesHandle(APIView):
+
+    def get(self, request, format=None):
+        dct = json.load(request)
+        response = thingsboard_GetDevices(JFTtoken, customerID) #tbd podle api callu z frontendu
+        return Response(response)
