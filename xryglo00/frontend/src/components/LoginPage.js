@@ -28,7 +28,12 @@ const LoginPage = () => {
         response.json())
          .then((data) =>{   
         console.log(data)
-        data.status > 200 ? AuthWarning : Auth.setJwt(data.token) 
+        if (data.status > 200) 
+            AuthWarning
+        else{
+            Auth.setJwt(data.token)
+            Auth.setUserName(email.substring(0, email.indexOf('@')))
+        } 
         
         window.location.href = "/";
     })

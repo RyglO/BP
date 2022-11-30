@@ -14,32 +14,32 @@ def main(requst):
     return HttpResponse("<h1>Stránka pro API, TBD<h1>")
 
 class LoginHandle(APIView):
-    # email = 'email'
-    # password = 'password'
-    # serializer_class = LoginSerializer
 
     def post(self, request, format=None):
         dct = json.load(request)
         response = thingsboard_login(dct["email"], dct["password"])
         return Response(response)
         
-        # if response.get('status') == None:
-        #     #Response({'OK': 'Successfully Logged in.'}, status=status.HTTP_200_OK, data=response.get("token"))
-        # elif response.get('code') == 401:
-        #     return Response({'Unauthorized': 'User account is not active'}, status=status.HTTP_401_UNAUTHORIZED)
-
-        # return Response({'Bad Request': 'Invalid post data, did not find a code key'}, status=status.HTTP_400_BAD_REQUEST)  
-
 class UsersHandle(APIView):
 
-    def get(self, request, format=None):
+    def post(self, request, format=None):
         dct = json.load(request)
-        response = thingsboard_getUsers(dct["JFTtoken"], dct["userSearch"]) #tbd podle api callu z frontendu
+        response = getAllDevices(dct["token"], dct["LoggedUser"]) 
         return Response(response)
 
-class DevicesHandle(APIView):
+
+#Asi zatím není třeba. Kdyby se loadoval customerID do paměti, tak lze využít na přímé načítání zařízení
+class DevicesHandle(APIView): 
 
     def get(self, request, format=None):
         dct = json.load(request)
-        response = thingsboard_GetDevices(JFTtoken, customerID) #tbd podle api callu z frontendu
+        response = thingsboard_GetDevices(JFTtoken, customerID) 
         return Response(response)
+
+class ValuesHandle(APIView):
+
+    def get(self, request, format=None):
+        dct = json.load(request)
+        repsonse = thingsboard_GetValuesFromDevice(JFTtoken, deviceID)
+
+        return Response(repsonse)

@@ -1,16 +1,16 @@
 import React, {Component} from "react";
 import {BrowserRouter, Routes, Route, Link, Redirect, Navigate} from "react-router-dom";
 import LoginPage from "./LoginPage";
-import Dashboard from "./Dashboard";
 import Auth from "./Auth";
+import DeviceList from "./DeviceList";
 
 const Router = () => 
     <BrowserRouter>
         <Routes>
             {Auth.isAuthenticated() && (
             <>
-                <Route exact path='/' element={<p> Tady bude jednou přehled zařízení</p>} />
-                <Route path='/Dashboard' element={<Dashboard />}/>
+                <Route exact path='/' element={<DeviceList />} />
+                <Route path='/Dashboard' element={<DeviceList />}/>
             </>)}
 
             <Route path='/login' element={<LoginPage />}> </Route>

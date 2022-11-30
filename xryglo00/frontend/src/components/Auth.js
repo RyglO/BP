@@ -5,6 +5,7 @@ const AUTH_TOKEN_NAME = "JWT"
 class Auth {
     static logout = async () => {
       sessionStorage.removeItem(AUTH_TOKEN_NAME)
+      sessionStorage.removeItem("userName")
       window.location.href = "/login";
     }
   
@@ -16,6 +17,15 @@ class Auth {
     static getJwt = () => {
       return sessionStorage.getItem(AUTH_TOKEN_NAME)
     }
+
+    static setUserName = async (username) => {
+      sessionStorage.setItem("userName", username)
+    }
+
+    static getUserName = () => {
+      return sessionStorage.getItem("userName")
+    }
+
     static isAuthenticated = () => Boolean(Auth.getJwt())
   
     //Might be usefull later
