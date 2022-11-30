@@ -27,7 +27,7 @@ def getAllDevices(JFTtoken, userSearch):
             idTennant = id['customerId'].get('id')
     #print(idTennant)
     response = thingsboard_GetDevices(JFTtoken, idTennant)
-    #print(json.loads(response.text))
+    print(response)
     return response
 
 

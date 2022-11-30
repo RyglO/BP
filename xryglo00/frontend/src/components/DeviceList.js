@@ -27,12 +27,13 @@ const DeviceList = () => {
         };
         fetch("api/users", requestOptions)
         .then((response) => 
-        response.json())
-         .then((data) =>{
-            //Co s tím teď? jak parsovat zařízení správně? 
-            
+            response.json())
+            .then((data) =>{
+            //Co s tím teď? jak parsovat zařízení správně?
+            console.log(data)
             setDevices(data)
-        })
+        }
+        )
     }
 
     useEffect(() => {
@@ -44,7 +45,7 @@ const DeviceList = () => {
             <h1>Dustupná zařízení</h1>
                 <div>
                     {devices.map((device) => (
-                        <Device_Gateway device={device} />
+                        <Device_Gateway key={device.id} device={device} />
                     ))}
                 </div>
             <button onClick={loadDevices}></button>

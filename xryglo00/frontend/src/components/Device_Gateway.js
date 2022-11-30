@@ -14,5 +14,4 @@ const Device_Gateway = ({device}) => {
         </div>
     );
 } 
-
 export default Device_Gateway
