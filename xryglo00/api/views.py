@@ -39,5 +39,5 @@ class ValuesHandle(APIView):
 
     def post(self, request, format=None):
         dct = json.load(request)
-        response = thingsboard_GetValuesFromDevice(dct["token"], dct["DeviceID"], dct["startTS"], dct["endTS"], dct["keys"])
+        response = thingsboard_GetValuesFromDevice(dct["token"], dct["DeviceID"], dct["startTS"], dct["endTS"], dct["keys"], dct["orderBy"], dct["interval"], dct["agg"])
         return Response(response.json(), status=status.HTTP_200_OK)

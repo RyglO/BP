@@ -40,7 +40,9 @@ const DeviceList = () => {
 
     return(
         <div>
-            <h1>Dustupná zařízení</h1>
+            <Typography component="h5" variant="h5">
+                    Dostupná zařízení
+                </Typography>
                 <div>
                     {devices.map((data) => (
                         <Link to={`/Device/${data.id.id}`}>
