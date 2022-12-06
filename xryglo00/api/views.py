@@ -3,7 +3,6 @@ from django.http import JsonResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, generics
-from thingsboardAPI import utils
 from api.util import *
 from api.serializers import LoginSerializer
 import json
@@ -24,9 +23,9 @@ class UsersHandle(APIView):
 
     def post(self, request, format=None):
         dct = json.load(request)
-        response = getAllDevices(dct["token"], dct["LoggedUser"]) 
-        return Response(response)
-
+        response = getAllDevices(dct["token"], dct["LoggedUser"])
+        
+        return Response(response.json(), status=status.HTTP_200_OK)
 
 #Asi zatím není třeba. Kdyby se loadoval customerID do paměti, tak lze využít na přímé načítání zařízení
 class DevicesHandle(APIView): 
@@ -38,8 +37,7 @@ class DevicesHandle(APIView):
 
 class ValuesHandle(APIView):
 
-    def get(self, request, format=None):
+    def post(self, request, format=None):
         dct = json.load(request)
-        repsonse = thingsboard_GetValuesFromDevice(JFTtoken, deviceID)
-
-        return Response(repsonse)
+        response = thingsboard_GetValuesFromDevice(dct["token"], dct["DeviceID"], dct["startTS"], dct["endTS"], dct["keys"])
+        return Response(response.json(), status=status.HTTP_200_OK)
