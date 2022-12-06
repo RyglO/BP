@@ -3,6 +3,7 @@ import {BrowserRouter, Routes, Route, Link, Redirect, Navigate} from "react-rout
 import LoginPage from "./LoginPage";
 import Auth from "./Auth";
 import DeviceList from "./DeviceList";
+import Device_Gateway from "./Device_Gateway";
 
 const Router = () => 
     <BrowserRouter>
@@ -11,6 +12,7 @@ const Router = () =>
             <>
                 <Route exact path='/' element={<DeviceList />} />
                 <Route path='/Dashboard' element={<DeviceList />}/>
+                <Route path='/Device/:id' element={<Device_Gateway />}/>
             </>)}
 
             <Route path='/login' element={<LoginPage />}> </Route>

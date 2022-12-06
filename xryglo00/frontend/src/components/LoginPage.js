@@ -7,11 +7,13 @@ import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import { Navigate, useNavigate } from "react-router-dom";
 import Auth from "./Auth";
-import AuthWarning from "./Alerts";
+import AuthWarning from "./AuthWarning";
 
 const LoginPage = () => {
     const[email, setEmail ] = useState("");
     const[password, setPassword] = useState("");
+    const[status, setStatus] = useState("");
+
     const login = () => {
         const requestOptions = {
             method: 'POST',
@@ -27,15 +29,15 @@ const LoginPage = () => {
         .then((response) => 
         response.json())
          .then((data) =>{   
-        console.log(data)
         if (data.status > 200) 
-            AuthWarning
+            setStatus({ msg: "Chyba přihlášení", key: data.status })
+            //tady volat
         else{
             Auth.setJwt(data.token)
             Auth.setUserName(email.substring(0, email.indexOf('@')))
-        } 
-        
-        window.location.href = "/";
+            setStatus({ msg: "Success", key: data.status })
+            window.location.href = "/"
+        }
     })
     }
 
@@ -43,7 +45,7 @@ const LoginPage = () => {
         <Grid container spacing={1}> 
             <Grid item xs={12} align="center">
                 <Typography component="h4" variant="h4">
-                    Wattee
+                    xryglo00
                 </Typography>   
             </Grid>
             <Grid item xs={12} align="center">
@@ -68,7 +70,8 @@ const LoginPage = () => {
             <Grid item xs={12} align="center">
                 <Button variant='contained' onClick={login} >
                     Přihlásit se
-                </Button>        
+                </Button>
+                {status ? <AuthWarning message={status.msg} /> : null}        
             </Grid>   
         </Grid>
         );

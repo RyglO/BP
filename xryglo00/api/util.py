@@ -56,18 +56,29 @@ def thingsboard_GetDevices(JFTtoken, customerID):
 
     return response
 
-def thingsboard_GetValuesFromDevice(JFTtoken, deviceID):
+def thingsboard_GetLastTSfromDevice(JFTtoken, deviceID):
     headers = {
         "Content-Type": "application/json;",
         "X-Authorization": "Bearer " + JFTtoken}
     parameters = {
-        'keys': 'import_power, export_power',
-            'startTs': 1666880863792,
-            'endTs': 1666881063792, 
+            'keys': 'counter',
+    }
+    response = get('https://wattee.net:443/api/plugins/telemetry/DEVICE/'+deviceID+ '/values/attributes/CLIENT_SCOPE', headers = headers, params=parameters)
+    return response
+
+def thingsboard_GetValuesFromDevice(JFTtoken, deviceID, startTS, endTS, keys):
+    headers = {
+        "Content-Type": "application/json;",
+        "X-Authorization": "Bearer " + JFTtoken}
+    parameters = {
+            'keys': keys,
+            'startTs': startTS,
+            'endTs': endTS, 
 
     }
-    response = get('https://wattee.net/api/customer/' + customerID + '/devices', headers = headers, params=parameters)
+    response = get('https://wattee.net/api/plugins/telemetry/DEVICE/'+deviceID+ '/values/timeseries', headers = headers, params=parameters)
 
     return response
+
 
     

@@ -6,8 +6,8 @@ import TextField from "@mui/material/TextField";
 import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import Auth from "./Auth";
-import Device_Gateway from "./Device_Gateway";
-
+import { Link } from "react-router-dom"; 
+import { CardActions, Card } from "@mui/material";
 
 const DeviceList = () => {
 
@@ -29,30 +29,34 @@ const DeviceList = () => {
         .then((response) => 
             response.json())
             .then((data) =>{
-            //Co s tím teď? jak parsovat zařízení správně?
-            console.log(data)
-            setDevices(data)
+            setDevices(data.data)
         }
         )
     }
 
     useEffect(() => {
-        loadDevices
-    })
+        loadDevices()
+    },[])
 
     return(
         <div>
             <h1>Dustupná zařízení</h1>
                 <div>
-                    {devices.map((device) => (
-                        <Device_Gateway key={device.id} device={device} />
+                    {devices.map((data) => (
+                        <Link to={`/Device/${data.id.id}`}>
+                            <Card variant="outlined" sx={{ maxWidth: 200 }}>
+                                <CardActions>
+                                    <Button variant="contained">
+                                        {data.name}
+                                    </Button>
+                                </CardActions>
+                            </Card>
+                        </Link>
                     ))}
                 </div>
-            <button onClick={loadDevices}></button>
-        </div>
-        
+            {/* <Button variant='contained' onClick={loadDevices}> Načti dostupná zařízení </Button> */}
+        </div>   
     )
-
 }
 
 export default DeviceList
