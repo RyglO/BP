@@ -41,20 +41,20 @@ const DeviceList = () => {
     return(
         <div>
             <Typography component="h5" variant="h5">
-                    Dostupná zařízení
+                    Dostupná zařízení:
                 </Typography>
                 <div>
-                    {devices.map((data) => (
+                        {devices.map((data) => (
                         <Link to={`/Device/${data.id.id}`}>
-                            <Card variant="outlined" sx={{ maxWidth: 200 }}>
-                                <CardActions>
-                                    <Button variant="contained">
-                                        {data.name}
-                                    </Button>
-                                </CardActions>
-                            </Card>
+                                <Card variant="outlined" sx={{ maxWidth: 200 }}>
+                                    <CardActions>
+                                        <Button variant="contained">
+                                            {data.name}
+                                        </Button>
+                                    </CardActions>
+                                </Card>
                         </Link>
-                    ))}
+                        ))}
                 </div>
             {/* <Button variant='contained' onClick={loadDevices}> Načti dostupná zařízení </Button> */}
         </div>   
