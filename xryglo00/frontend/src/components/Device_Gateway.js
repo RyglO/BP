@@ -106,8 +106,8 @@ const Device_Gateway = () => {
         console.log('Logs every 10 sec');
     }, MINUTE_MS);
 
-  return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
-}, [])
+    return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
+    }, [])
 
 
     return (
