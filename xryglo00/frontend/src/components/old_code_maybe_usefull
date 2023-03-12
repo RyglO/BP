@@ -1,0 +1,52 @@
+const loadData = (key) => {
+        const date = new Date()
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+            body: JSON.stringify({
+                "token": Auth.getJwt(),
+                "DeviceID": id,
+                "startTS": date.setHours(date.getHours() - 1),
+                "endTS": Date.now(),
+                "keys": key
+            }),
+        }
+        fetch("http://127.0.0.1:8000/api/dataDevices", requestOptions)
+        .then((response) =>
+        response.json()
+        ).then((d) => {
+            const keys = Object.keys(d)
+            setDataAC(d[keys[0]].map((_,i) => keys.reduce((acc,k) => ({...acc, [k]:d[k][i].value.toFixed(2)}),{time:(new Date(d[keys[0]][i].ts)).toISOString()})))
+        })
+    }
+
+    const loadDataPoly = (key) => {
+        const date = new Date()
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+            body: JSON.stringify({
+                "token": Auth.getJwt(),
+                "DeviceID": id,
+                "startTS": date.setHours(date.getHours() - 1),
+                "endTS": Date.now(),
+                "keys": key,
+                "orderBy": "ASC",
+                "interval": "60000",
+                "agg": "AVG"
+            }),
+            
+        }
+        print(requestOptions)
+        print("sup bitch")
+        return fetch("http://127.0.0.1:8000/api/dataDevices", requestOptions)
+        .then((response) =>
+        response.json())
+        .then((d) => {
+            return d
+        })
+    }

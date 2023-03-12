@@ -5,6 +5,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 import { CardContent, Grid } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
+import loadDataPoly from "./PolyAPIcall";
 
 const Device_Gateway = () => {
 
@@ -16,74 +17,28 @@ const Device_Gateway = () => {
 
     const {id} = useParams(); 
 
-    const loadData = (key) => {
-        const date = new Date()
-        const requestOptions = {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-            },
-            body: JSON.stringify({
-                "token": Auth.getJwt(),
-                "DeviceID": id,
-                "startTS": date.setHours(date.getHours() - 1),
-                "endTS": Date.now(),
-                "keys": key
-            }),
-        }
-        fetch("http://127.0.0.1:8000/api/dataDevices", requestOptions)
-        .then((response) =>
-        response.json()
-        ).then((d) => {
-            const keys = Object.keys(d)
-            setDataAC(d[keys[0]].map((_,i) => keys.reduce((acc,k) => ({...acc, [k]:d[k][i].value.toFixed(2)}),{time:(new Date(d[keys[0]][i].ts)).toISOString()})))
-        })
-    }
-
-    const loadDataPoly = (key) => {
-        const date = new Date()
-        const requestOptions = {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-            },
-            body: JSON.stringify({
-                "token": Auth.getJwt(),
-                "DeviceID": id,
-                "startTS": date.setHours(date.getHours() - 1),
-                "endTS": Date.now(),
-                "keys": key,
-                "orderBy": "ASC",
-                "interval": "60000",
-                "agg": "AVG"
-            }),
-        }
-        return fetch("http://127.0.0.1:8000/api/dataDevices", requestOptions)
-        .then((response) =>
-        response.json())
-        .then((d) => {
-            return d
-        })
-    }
+    
 
     const loadAll = () => {
-        loadDataPoly('voltage_l1,voltage_l2,voltage_l3').then(response => {
+        const date = new Date()
+
+        loadDataPoly(id, 'voltage_l1,voltage_l2,voltage_l3', 'ASC', '60000', 'AVG', date.setHours(date.getHours() - 1), Date.now()).then(response => {
             const keys = Object.keys(response)
             setDataAC(response[keys[0]].map((_,i) => keys.reduce((acc,k) => ({...acc, [k]:Number(response[k][i].value).toFixed(2)}),{time:(new Date(response[keys[0]][i].ts).toLocaleString("cs-CZ"))})))
         })
-        loadDataPoly('current_l1,current_l2,current_l3').then(response => {
+        loadDataPoly(id, 'current_l1,current_l2,current_l3', 'ASC', '60000', 'AVG', date.setHours(date.getHours() - 1), Date.now()).then(response => {
             const keys = Object.keys(response)
             setDataACcurrent(response[keys[0]].map((_,i) => keys.reduce((acc,k) => ({...acc, [k]:Number(response[k][i].value).toFixed(2)}),{time:(new Date(response[keys[0]][i].ts).toLocaleString("cs-CZ"))})))
         })
-        loadDataPoly('power_l1,power_l2,power_l3').then(response => {
+        loadDataPoly(id, 'power_l1,power_l2,power_l3', 'ASC', '60000', 'AVG', date.setHours(date.getHours() - 1), Date.now()).then(response => {
             const keys = Object.keys(response)
             setDataACactive(response[keys[0]].map((_,i) => keys.reduce((acc,k) => ({...acc, [k]:Number(response[k][i].value).toFixed(2)}),{time:(new Date(response[keys[0]][i].ts)).toLocaleString("cs-CZ")})))
         })
-        loadDataPoly('import_active_power').then(response => {
+        loadDataPoly(id, 'import_active_power', 'ASC', '60000', 'AVG', date.setHours(date.getHours() - 1), Date.now()).then(response => {
             const keys = Object.keys(response)
             setDataImport(response[keys[0]].map((_,i) => keys.reduce((acc,k) => ({...acc, [k]:Number(response[k][i].value).toFixed(2)}),{time:(new Date(response[keys[0]][i].ts)).toLocaleString("cs-CZ")})))
         })
-        loadDataPoly('export_active_power').then(response => {
+        loadDataPoly(id, 'export_active_power', 'ASC', '60000', 'AVG', date.setHours(date.getHours() - 1), Date.now()).then(response => {
             const keys = Object.keys(response)
             setDataExport(response[keys[0]].map((_,i) => keys.reduce((acc,k) => ({...acc, [k]:Number(response[k][i].value).toFixed(2)}),{time:(new Date(response[keys[0]][i].ts)).toLocaleString("cs-CZ")})))
         })
@@ -106,7 +61,7 @@ const Device_Gateway = () => {
         console.log('Logs every 10 sec');
     }, MINUTE_MS);
 
-    return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
+        return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
     }, [])
 
 
