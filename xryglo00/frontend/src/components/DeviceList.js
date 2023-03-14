@@ -8,6 +8,7 @@ import FormControl from "@mui/material/FormControl";
 import Auth from "./Auth";
 import { Link } from "react-router-dom"; 
 import { CardActions, Card } from "@mui/material";
+import { Container } from "@mui/system";
 
 const DeviceList = () => {
 
@@ -38,26 +39,39 @@ const DeviceList = () => {
         loadDevices()
     },[])
 
+
+
+
     return(
-        <div>
-            <Typography component="h5" variant="h5">
+        <main>
+            <Container>
+                <Typography component="h5" variant="h5">
                     Dostupná zařízení:
-                </Typography>
-                <div>
-                        {devices.map((data) => (
-                        <Link to={`/Device/${data.type}/${data.id.id}`}>
-                                <Card variant="outlined" sx={{ maxWidth: 200 }}>
-                                    <CardActions>
-                                        <Button variant="contained">
-                                            {data.name}
-                                        </Button>
-                                    </CardActions>
-                                </Card>
-                        </Link>
-                        ))}
-                </div>
+                </Typography>    
+            </Container>
+            <Container sx={{ py: 8 }} maxWidth="md">
+                <Grid container spacing={4}>
+                    {devices.map((data) => (
+                        <Grid item key={data} xs={12} md={4}>
+                        <Card variant="outlined">
+                            <Link to={`/Device/${data.type}/${data.id.id}`}>
+                                <Typography variant="subtitle1" align="center" color="text.secondary" paragraph>
+                                    {data.name}
+                                   </Typography>
+                                <CardActions>
+                                <Button variant="contained" align="center">
+                                    {data.type}
+                                </Button>
+                                </CardActions>
+                            </Link>
+                        </Card>
+                        </Grid>
+                    
+                    ))}
+                </Grid>
+            </Container>
             {/* <Button variant='contained' onClick={loadDevices}> Načti dostupná zařízení </Button> */}
-        </div>   
+        </main>   
     )
 }
 
