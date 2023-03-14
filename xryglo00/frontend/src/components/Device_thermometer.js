@@ -11,7 +11,7 @@ const Device_thermometer = () => {
 
     const [dataThermo, setDataThermo] = useState([])
 
-    const {id} = useParams();
+    const {id, devicetype} = useParams();
 
 
     const loadData = () => {

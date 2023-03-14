@@ -45,7 +45,7 @@ const DeviceList = () => {
                 </Typography>
                 <div>
                         {devices.map((data) => (
-                        <Link to={`/Device/${data.id.id}`}>
+                        <Link to={`/Device/${data.type}/${data.id.id}`}>
                                 <Card variant="outlined" sx={{ maxWidth: 200 }}>
                                     <CardActions>
                                         <Button variant="contained">
