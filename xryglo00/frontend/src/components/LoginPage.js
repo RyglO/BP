@@ -59,12 +59,12 @@ const LoginPage = () => {
             </Grid>
              <Grid item xs={12} align="center">
                 <FormControl>
-                    <TextField required={true} type="text" label="Email" onChange={e => setEmail(e.target.value)}/>     
+                    <TextField required={true} type="text" label="Email" onChange={e => setEmail(e.target.value)} error={status.msg == 'Chyba přihlášení'}/>     
                 </FormControl>    
             </Grid>
             <Grid item xs={12} align="center">
                 <FormControl>
-                    <TextField required={true} type="password" label="Heslo" onChange={e => setPassword(e.target.value)}/>     
+                    <TextField required={true} type="password" label="Heslo" onChange={e => setPassword(e.target.value)} error={status.msg == 'Chyba přihlášení'}/>     
                 </FormControl>     
             </Grid>
             <Grid item xs={12} align="center">
