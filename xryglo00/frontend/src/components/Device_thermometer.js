@@ -13,42 +13,76 @@ const Device_thermometer = () => {
 
     const [dataThermo, setDataThermo] = useState([])
 
-    const [settings, setSettings] = useState({})
+    //const [settings[isLive, intervalValue, historyValue}, setSettings] = useState({isLive: false, intervalValue: 5, historyValue: 1440})
+
+    // const [isLive, setIsLive] = useState(false)
+    // const [intervalValue, setIntervalValue] = useState(5)
+    // const [historyValue, setHistoryValue] = useState(1440)
+    let refreshID = null
+
+    let settings = {
+        isLive: false,
+        intervalValue: 5,
+        historyValue: 1440
+    }
 
     const {id, devicetype} = useParams();
     const [open, setOpenDialog] = useState(false);
+
+    const settingsChanged = (settingsInput) => {
+        settings = settingsInput
+        console.log(settings)
+
+        // clearTimeout(refreshID)
+        refresh2()
+    }
+
+    
 
     const handleButtonClick = () => {
         setOpenDialog(true);
     };
   
     const handleClose = () => {
-        console.log('called')
         setOpenDialog(false);
+        //refresh()
     };
 
-    const refresh = () => {
-        console.log('refresh')
-        loadData()
-        setTimeout(refresh, 5000)
+    // const refresh = () => {
+    //     console.log(refreshID + "po zavolání ")
+    //     clearInterval(refreshID)
+    //     refreshID=null
+    //     console.log(refreshID)
+    //     console.log("is this refresh?")
+    //     loadData()
+    //     if(settings.isLive && !refreshID)
+    //     {    
+    //         console.log(settings.isLive, " banáne")
+    //         refreshID = setInterval(() => refresh(), 5000) 
+    //         console.log(refreshID + "nastavení")
+    //     }
+        
+    // }
+
+    const refresh2 = () => {
+        clearInterval(refreshID)
+        if(settings.isLive)
+            refreshID = setInterval(loadData, 5000)
     }
 
-    useEffect(() => {
-        refresh()
-    }, [])
+
+    // useEffect(() => {
+    //         refresh()
+    // }, [])
 
     const loadData = () => {
         const date = new Date()
         console.log("ahoj")
-        loadDataPoly(id, 'temperature', 'ASC', '3600000', 'AVG', date.setHours(date.getHours() - 24), Date.now()).then(response => {
+        loadDataPoly(id, 'temperature', 'ASC', (settings.intervalValue*60000).toString(), 'AVG', date.setHours(date.getHours() - (settings.historyValue/60)), Date.now()).then(response => {
             const keys = Object.keys(response)
-            
             setDataThermo(response[keys[0]].map((_,i) => keys.reduce((acc,k) => ({...acc, [k]:Number(response[k][i].value).toFixed(2)}),{time:(new Date(response[keys[0]][i].ts).toLocaleString("cs-CZ"))})))
         })
     }
-    useEffect(() => {
-        loadData()
-    },[])
      useEffect(() => console.log(dataThermo), [setDataThermo, dataThermo])
 
 
@@ -56,7 +90,7 @@ const Device_thermometer = () => {
 
         console.log('hruška')
         return(
-            <GraphSettingsDialog open={true} handleClose={handleClose} saveSettings={setSettings}/>
+            <GraphSettingsDialog open={true} handleClose={handleClose} saveSettings={settingsChanged}/>
         )
      }
 

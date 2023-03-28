@@ -32,8 +32,8 @@ const GraphSettingsDialog = ({open, handleClose, saveSettings}) => {
     }
 
     const handleSave = () => {
-        //tady musím vrátit nové hodnoty
-        saveSettings({})
+        
+        saveSettings({isLive, intervalValue, historyValue})
         handleClose();
     }
 
@@ -44,20 +44,22 @@ const GraphSettingsDialog = ({open, handleClose, saveSettings}) => {
                 <FormGroup>
                         <InputLabel id="interval-label">Interval dat</InputLabel>
                         <Select value={intervalValue} onChange={handleIntervalChange}>
-                            <MenuItem value="1">1 minuta</MenuItem>
-                            <MenuItem value="5">5 minut</MenuItem>
-                            <MenuItem value="15">15 minut</MenuItem>
-                            <MenuItem value="30">30 minut</MenuItem>
-                            <MenuItem value="60">60 minut</MenuItem>
+                            <MenuItem value={1}>1 minuta</MenuItem>
+                            <MenuItem value={5}>5 minut</MenuItem>
+                            <MenuItem value={15}>15 minut</MenuItem>
+                            <MenuItem value={30}>30 minut</MenuItem>
+                            <MenuItem value={60}>60 minut</MenuItem>
                         </Select>
                         <InputLabel id="history-label">Zobrazované období</InputLabel>
                         <Select value={historyValue} onChange={handleHistoryChange}>
-                            <MenuItem value="60">1 hodina</MenuItem> 
-                            <MenuItem value="560">6 hodin</MenuItem>
-                            <MenuItem value="720">12 hodin</MenuItem>
-                            <MenuItem value="1440">24 hodin</MenuItem>
-                            <MenuItem value="2880">48 dny</MenuItem>
+                            <MenuItem value={60}>1 hodina</MenuItem> 
+                            <MenuItem value={560}>6 hodin</MenuItem>
+                            <MenuItem value={720}>12 hodin</MenuItem>
+                            <MenuItem value={1440}>24 hodin</MenuItem>
+                            <MenuItem value={2880}>48 dny</MenuItem>
                         </Select>
+                        <FormControlLabel control={<Switch checked={isLive} onChange={handleLiveChange}/>} label = "Živá data" />
+                        
                 </FormGroup>
             </DialogContent>
             <DialogActions>
