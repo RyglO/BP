@@ -70,16 +70,16 @@ const Device_Gateway = () => {
             <Grid item xs align="center">
             <Card variant="outlined" sx={{ maxWidth: 550 }}> 
             <CardContent>
-                <Typography component="h4" variant="h4">AC Phase Voltage</Typography> 
+                <Typography component="h6" variant="h6" align="left">AC Napětí</Typography> 
                 <LineChart width={500} height={300} data={dataAC} margin={{top: 5, right: 30, left: 20, bottom: 5,}}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="time" />
                     <YAxis />
                     <Tooltip />
                     <Legend />
-                    <Line type="monotone" dataKey="voltage_l1" stroke="#8884d8" name="Phase 1" dot={false}/>
-                    <Line type="monotone" dataKey="voltage_l2" stroke="#82ca9d" name="Phase 2" dot={false}/>
-                    <Line type="monotone" dataKey="voltage_l3" stroke="#ff0000" name="Phase 3" dot={false}/>
+                    <Line type="monotone" dataKey="voltage_l1" stroke="#8884d8" name="Fáze L1" dot={false}/>
+                    <Line type="monotone" dataKey="voltage_l2" stroke="#82ca9d" name="Fáze L2" dot={false}/>
+                    <Line type="monotone" dataKey="voltage_l3" stroke="#ff0000" name="Fáze L3" dot={false}/>
                 </LineChart>
             </CardContent>
                 
@@ -88,7 +88,7 @@ const Device_Gateway = () => {
             <Grid item xs align="center">
                 <Card variant="outlined" sx={{ maxWidth: 550 }}> 
                 <CardContent>
-                    <Typography component="h4" variant="h4">AC Phase Current</Typography> 
+                    <Typography component="h6" variant="h6" align="left">AC Čistý výkon</Typography> 
                 <LineChart width={500} height={300} data={dataACcurrent} margin={{top: 5, right: 30, left: 20, bottom: 5,}}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="time" />
@@ -125,7 +125,7 @@ const Device_Gateway = () => {
             <Grid item xs align="center">
             <Card variant="outlined" sx={{ maxWidth: 550 }}> 
             <CardContent>
-                <Typography component="h4" variant="h4">Import power</Typography> 
+                <Typography component="h6" variant="h6" align="left">Průběžná spotřeba</Typography> 
                 <LineChart width={500} height={300} data={dataImport} margin={{top: 5, right: 30, left: 20, bottom: 5,}}>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="time" />
@@ -141,11 +141,11 @@ const Device_Gateway = () => {
             <Grid item xs align="center">
                 <Card variant="outlined" sx={{ maxWidth: 550 }}> 
                 <CardContent> 
-                    <Typography component="h4" variant="h4">Export power</Typography> 
+                    <Typography component="h6" variant="h6" align="left">Průběžná výroba</Typography> 
                     <LineChart width={500} height={300} data={dataExport} margin={{top: 5, right: 30, left: 20, bottom: 5,}}>
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="time" />
-                        <YAxis />
+                        <YAxis allowDataOverflow={false}/>
                         <Tooltip />
                         <Legend />
                         <Line type="monotone" dataKey="export_active_power" stroke="#8884d8" name="Export power"/>

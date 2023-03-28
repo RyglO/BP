@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Dialog} from "@mui/material";
 import {DialogTitle} from "@mui/material";
 import {DialogContent} from "@mui/material";
@@ -14,10 +14,14 @@ import {FormGroup} from "@mui/material";
 import {FormControlLabel} from "@mui/material";
 import { Form } from "react-router-dom";
 
-const GraphSettingsDialog = ({open, handleClose, saveSettings}) => {
-    const [isLive, setIsLive] = useState(false);
-    const [intervalValue, setIntervalValue] = useState(5);
-    const [historyValue, setHistoryValue] = useState(1440);
+const GraphSettingsDialog = ({open, handleClose, currentSettings, saveSettings}) => {
+    const [isLive, setIsLive] = useState(currentSettings.isLive );
+    const [intervalValue, setIntervalValue] = useState(currentSettings.intervalValue);
+    const [historyValue, setHistoryValue] = useState(currentSettings.historyValue);
+
+    useEffect(() => {
+        console.log("current settings: ", currentSettings)
+    })
 
     const handleLiveChange = (event) => {
         setIsLive(event.target.checked)

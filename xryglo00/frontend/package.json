@@ -26,6 +26,8 @@
     "@emotion/styled": "^11.10.5",
     "@mui/icons-material": "^5.10.14",
     "@mui/material": "^5.10.14",
+    "chart.js": "^4.2.1",
+    "react-chartjs-2": "^5.2.0",
     "react-router-dom": "^6.4.3",
     "recharts": "^2.1.16"
   }

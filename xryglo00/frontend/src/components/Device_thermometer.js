@@ -31,12 +31,17 @@ const Device_thermometer = () => {
 
     const settingsChanged = (settingsInput) => {
         settings = settingsInput
-        console.log(settings)
-
-        // clearTimeout(refreshID)
-        refresh2()
+        console.log('new settings set: ', settings)
+        refresh()
     }
 
+    const handleVisibilityChange = () => {
+        if (document.hidden) {
+          document.title = "Vrať se prosím <3!";
+        } else {
+          document.title = "Díky"; 
+        }
+      };
     
 
     const handleButtonClick = () => {
@@ -45,39 +50,28 @@ const Device_thermometer = () => {
   
     const handleClose = () => {
         setOpenDialog(false);
-        //refresh()
     };
 
-    // const refresh = () => {
-    //     console.log(refreshID + "po zavolání ")
-    //     clearInterval(refreshID)
-    //     refreshID=null
-    //     console.log(refreshID)
-    //     console.log("is this refresh?")
-    //     loadData()
-    //     if(settings.isLive && !refreshID)
-    //     {    
-    //         console.log(settings.isLive, " banáne")
-    //         refreshID = setInterval(() => refresh(), 5000) 
-    //         console.log(refreshID + "nastavení")
-    //     }
-        
-    // }
-
-    const refresh2 = () => {
+    const refresh = () => {
         clearInterval(refreshID)
-        if(settings.isLive)
-            refreshID = setInterval(loadData, 5000)
+        refreshID=null
+        loadData()
+        if(settings.isLive && !refreshID)
+            refreshID = setInterval(() => refresh(), 5000) 
+        
     }
-
-
-    // useEffect(() => {
-    //         refresh()
-    // }, [])
+    useEffect(() => {
+            document.title = "Teploměr";
+            document.addEventListener('visibilitychange', handleVisibilityChange);
+            refresh()
+            return () => {
+            // remove the event listener when the component unmounts
+            document.removeEventListener('visibilitychange', handleVisibilityChange);
+            };
+    }, [])
 
     const loadData = () => {
         const date = new Date()
-        console.log("ahoj")
         loadDataPoly(id, 'temperature', 'ASC', (settings.intervalValue*60000).toString(), 'AVG', date.setHours(date.getHours() - (settings.historyValue/60)), Date.now()).then(response => {
             const keys = Object.keys(response)
             setDataThermo(response[keys[0]].map((_,i) => keys.reduce((acc,k) => ({...acc, [k]:Number(response[k][i].value).toFixed(2)}),{time:(new Date(response[keys[0]][i].ts).toLocaleString("cs-CZ"))})))
@@ -88,9 +82,9 @@ const Device_thermometer = () => {
 
      const renderDialog = () => {
 
-        console.log('hruška')
+        console.log(settings)
         return(
-            <GraphSettingsDialog open={true} handleClose={handleClose} saveSettings={settingsChanged}/>
+            <GraphSettingsDialog open={true} handleClose={handleClose} currentSettings={settings} saveSettings={settingsChanged}/>
         )
      }
 
