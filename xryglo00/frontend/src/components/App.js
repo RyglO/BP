@@ -3,6 +3,7 @@ import {render} from "react-dom";
 import Router from './Router';
 import LoginPage from './LoginPage';
 import Hotbar from './Hotbar';
+import { AuthProvider } from './AuthContetxt';
 
 export default class App extends Component{
     constructor(props){
@@ -12,10 +13,10 @@ export default class App extends Component{
 
     render(){
         return (
-        <div> 
-            <Hotbar />
-            <Router />
-        </div>
+            <AuthProvider>
+                <Hotbar />
+                <Router />
+            </AuthProvider>
         );
     }
 }

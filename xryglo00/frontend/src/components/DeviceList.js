@@ -41,7 +41,6 @@ const DeviceList = () => {
 
 
 
-
     return(
         <main>
             <Container>
@@ -53,7 +52,7 @@ const DeviceList = () => {
                 <Grid container spacing={4}>
                     {devices.map((data) => (
                         <Grid item key={data} xs={12} md={4}>
-                        <Card variant="outlined">
+                        <Card variant="outlined" align="center">
                             <Link to={`/Device/${data.type}/${data.id.id}`}>
                                 <Typography variant="subtitle1" align="center" color="text.secondary" paragraph>
                                     {data.name}
