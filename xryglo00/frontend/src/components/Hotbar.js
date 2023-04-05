@@ -15,7 +15,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 import Auth from './Auth';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-const pages = ['Dashboard'];
+const pages = ['Přehled zařízení'];
 const settings = ['Profil', 'Logout'];
 
 function ResponsiveAppBar() {
