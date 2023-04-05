@@ -59,7 +59,7 @@ const DeviceList = () => {
                                    </Typography>
                                 <CardActions>
                                 <Button variant="contained" align="center">
-                                    {data.type}
+                                    Otevřít dashboard zařízení.
                                 </Button>
                                 </CardActions>
                             </Link>
