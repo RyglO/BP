@@ -27,7 +27,7 @@ class Auth {
     }
 
     static isAuthenticated = () => Boolean(Auth.getJwt())
-  
+  }
     //Might be usefull later
     // static getUserIdFromJWT = (jwt: string) => {
     //   const payload = (jwt.split('.') ?? [])[1]
@@ -40,6 +40,4 @@ class Auth {
   
     //   return `${userType ?? 'Manager'}:${id ?? username}`
     // }
-  }
-
   export default Auth
