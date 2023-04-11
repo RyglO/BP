@@ -3,17 +3,20 @@
       {
         "name": "Zobrazení dat",
         "link": "/Devices",
-        "access": "USER"
+        "access": "USER",
+        "picture": "list-paper.svg"
       },
       {
         "name": "Users",
         "link": "/Users",
-        "access": "TENANT"
+        "access": "TENANT",
+        "picture": "avatar.svg"
       },
       {
         "name": "Přehled zařízení",
         "link": "/ListDevices",
-        "access": "TENANT"
+        "access": "TENANT",
+        "picture": "cogwheel.svg"
       }
     ]
   }
