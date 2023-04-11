@@ -4,7 +4,6 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 import { CardContent, Grid } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
-import PersistentDrawerRight from "../../../GraphSettingsDrawer";
 
 
 
@@ -22,7 +21,6 @@ return(
             </Card>
         </Grid>
     </Grid>
-    //<PersistentDrawerRight/>
 )
 }
 

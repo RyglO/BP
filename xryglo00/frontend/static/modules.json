@@ -1,0 +1,19 @@
+{
+    "modules": [
+      {
+        "name": "Zobrazení dat",
+        "link": "/Devices",
+        "access": "USER"
+      },
+      {
+        "name": "Users",
+        "link": "/Users",
+        "access": "TENANT"
+      },
+      {
+        "name": "Přehled zařízení",
+        "link": "/ListDevices",
+        "access": "TENANT"
+      }
+    ]
+  }

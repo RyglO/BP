@@ -7,7 +7,6 @@ import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import loadDataPoly from "../../../PolyAPIcall";
 import GraphSettingsDialog from "../../../GraphSettingsDialog";
-import SettingsWindow from "../../../GraphSettingsDialog_GPT";
 
 const Device_thermometer = () => {
 

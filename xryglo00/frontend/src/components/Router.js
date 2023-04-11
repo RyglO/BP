@@ -4,7 +4,9 @@ import LoginPage from "./LoginPage";
 import Auth from "./Auth";
 import DeviceDashboard from "./Modules/Devices/DeviceDashboard";
 import Device_General from "./Modules/Devices/Dashboards/Device_General";
+import ListDevices from "./Modules/Devices/ListDevices";
 import { AuthContext, AuthProvider } from "./AuthContetxt";
+import ModuleList from "./ModulesList";
 
 const Router = () => 
     <BrowserRouter basename="/">
@@ -14,8 +16,9 @@ const Router = () =>
                     {isAdmin && <Route path='*' element={<div>ahoj</div>} />}
                     {Auth.isAuthenticated() && (
                     <>
-                        <Route exact path='/' element={<DeviceDashboard />} />
-                        <Route path='/Dashboard' element={<DeviceDashboard />}/>
+                        <Route exact path='/' element={<ModuleList />} />
+                        <Route path='/ListDevices' element={<ListDevices />} />
+                        <Route path='/Devices' element={<DeviceDashboard />}/>
                         <Route path='/Device/:devicetype/:id' element={<Device_General />}/>
                     </>)}
 
