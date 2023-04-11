@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Auth from "./Auth";
+import Auth from "../../../Auth";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Button, CardContent, Grid, Dialog, DialogTitle, DialogContent} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
-import loadDataPoly from "./PolyAPIcall";
-import GraphSettingsDialog from "./GraphSettingsDialog";
-import SettingsWindow from "./GraphSettingsDialog_GPT";
+import loadDataPoly from "../../../PolyAPIcall";
+import GraphSettingsDialog from "../../../GraphSettingsDialog";
+import SettingsWindow from "../../../GraphSettingsDialog_GPT";
 
 const Device_thermometer = () => {
 

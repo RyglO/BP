@@ -5,12 +5,12 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
-import Auth from "./Auth";
+import Auth from "../../Auth";
 import { Link } from "react-router-dom"; 
 import { CardActions, Card } from "@mui/material";
 import { Container } from "@mui/system";
 
-const DeviceList = () => {
+const DeviceDashboard = () => {
 
     const [devices, setDevices] = useState([]);
 
@@ -74,4 +74,4 @@ const DeviceList = () => {
     )
 }
 
-export default DeviceList
+export default DeviceDashboard

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Auth from "./Auth";
+import Auth from "../../../Auth";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { CardContent, Grid } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
-import loadDataPoly from "./PolyAPIcall";
+import loadDataPoly from "../../../PolyAPIcall";
 import Device_Gateway from "./Device_Gateway";
 import Device_thermometer from "./Device_thermometer";
 import Device_not_implemented from "./Device_not_implemented";

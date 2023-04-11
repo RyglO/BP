@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Auth from "./Auth";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart, Bar } from 'recharts';
 import { CardContent, Grid } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
-import loadDataPoly from "./PolyAPIcall";
+import loadDataPoly from "../../../PolyAPIcall";
 import {Button} from "@mui/material";
-import GraphSettingsDialog from "./GraphSettingsDialog";
+import GraphSettingsDialog from "../../../GraphSettingsDialog";
 
 const Device_Gateway = () => {
 
