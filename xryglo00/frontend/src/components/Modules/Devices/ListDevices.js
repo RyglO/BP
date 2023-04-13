@@ -33,8 +33,8 @@ const ListDevices = () => {
 
 
     return(
-        <>
-            <TableContainer component={Paper}>
+        <Paper sx={{ margin: "50px 50px 50px 50px"}}>
+            <TableContainer>
                 <Table>
                     <TableHead>
                         <TableRow>
@@ -65,7 +65,7 @@ const ListDevices = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-        </>
+        </Paper>
         
     )
 

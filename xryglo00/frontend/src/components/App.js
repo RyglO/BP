@@ -4,6 +4,7 @@ import Router from './Router';
 import LoginPage from './LoginPage';
 import Hotbar from './Hotbar';
 import { AuthProvider } from './AuthContetxt';
+import Footer from './Footer';
 
 export default class App extends Component{
     constructor(props){
@@ -14,8 +15,9 @@ export default class App extends Component{
     render(){
         return (
             <AuthProvider>
-                <Hotbar />
+                <Hotbar /> 
                 <Router />
+                <Footer />
             </AuthProvider>
         );
     }
