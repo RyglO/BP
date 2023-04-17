@@ -1,11 +1,20 @@
 import React, { useDebugValue, useEffect, useState } from 'react'
 import { Button, Paper, Tab, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import Auth from '../../Auth';
+import EditDeviceDialog from './EditDeviceDialog';
 
 const ListDevices = () => {
     
     const [devices, setDevices] = useState([]);
+    const [openDialog, setOpenDialog] = useState(false); 
 
+    const handleButtonClick = (davideID) => {
+        setOpenDialog(true);
+    };
+  
+    const handleClose = () => {
+        setOpenDialog(false);
+    };
 
     const loadDevices = () => {
         const requestOptions = {
@@ -30,6 +39,12 @@ const ListDevices = () => {
     useEffect(() => {
         loadDevices()
     },[])
+
+    const renderDialog = (label) => {
+        return(
+            <EditDeviceDialog open={true} handleClose={handleClose} currentUserLabel={label} />
+        )
+    }
 
 
     return(
@@ -56,9 +71,10 @@ const ListDevices = () => {
                             <TableCell align="center">{data.id.entityType}</TableCell>
                             <TableCell align="center"></TableCell>
                             <TableCell align="center">
-                                <Button variant="outlined" color="secondary">
+                                <Button variant="outlined" color="secondary" onClick={handleButtonClick(data.id)}>
                                     Upravit 
                                 </Button>
+                                {openDialog && renderDialog(data.label)}
                             </TableCell>
                         </TableRow>
                     ))}

@@ -6,7 +6,7 @@ import { Button, CardContent, Grid, Dialog, DialogTitle, DialogContent} from "@m
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import loadDataPoly from "../../../PolyAPIcall";
-import GraphSettingsDialog from "../../../GraphSettingsDialog";
+import GraphSettingsDialog from './GraphSettingsDialog'
 
 const Device_thermometer = () => {
 

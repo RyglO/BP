@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import loadDataPoly from "../../../PolyAPIcall";
 import {Button} from "@mui/material";
-import GraphSettingsDialog from "../../../GraphSettingsDialog";
+import GraphSettingsDialog from './GraphSettingsDialog'
 
 const Device_Gateway = () => {
 

@@ -8,7 +8,7 @@ const ModuleList = () => {
 
     return (
         <Grid container spacing={4} 
-        sx={{ margin: "10px 10px 10px 10px", 
+        sx={{ marginTop: "10px", 
         flexGrow: 1,
         justifyContent: "center",
         display: "flex",
@@ -25,9 +25,7 @@ const ModuleList = () => {
                             </Link>
                         </Card>       
                     </CardActionArea>
-                    
                 </Grid>
-
             ))}
         </Grid>
     )
