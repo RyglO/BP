@@ -1,4 +1,4 @@
-import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { Button, Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Auth from "../../Auth";
 
@@ -33,10 +33,11 @@ const ListUsers = () => {
     }, [])
 
   	return (
+      <>
+        <Button variant='contained' sx={{ float: 'right', marginRight: "50px", marginTop: "10px" }} color="primary">
+        Přidat nového uživatele
+        </Button>      
         <Paper sx={{ margin: "50px 50px 50px 50px"}}>
-          <Button variant='contained' sx={{float: 'right', margin:"10px"}} color="primary">
-            Přidat nového uživatele
-          </Button>
           <TableContainer>
               <Table>
                 <TableHead>
@@ -65,8 +66,8 @@ const ListUsers = () => {
               </Table>
           </TableContainer>
 
-    </Paper>
-
+        </Paper>
+      </>
 )
 }
 export default ListUsers

@@ -7,7 +7,7 @@
         "picture": "list-paper.svg"
       },
       {
-        "name": "Users",
+        "name": "Nastavení uživatelů",
         "link": "/Users",
         "access": "TENANT",
         "picture": "avatar.svg"
