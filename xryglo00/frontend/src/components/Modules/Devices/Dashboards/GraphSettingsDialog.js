@@ -62,8 +62,7 @@ const GraphSettingsDialog = ({open, handleClose, currentSettings, saveSettings})
                             <MenuItem value={1440}>24 hodin</MenuItem>
                             <MenuItem value={2880}>48 dny</MenuItem>
                         </Select>
-                        <FormControlLabel control={<Switch checked={isLive} onChange={handleLiveChange}/>} label = "Živá data" />
-                        
+                        <FormControlLabel control={<Switch checked={isLive} onChange={handleLiveChange}/>} label = "Živá data" />    
                 </FormGroup>
             </DialogContent>
             <DialogActions>

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Dialog, DialogContent, DialogTitle, FormGroup, InputLabel, TextField } from "@mui/material";
+import { Dialog, DialogContent, DialogTitle, DialogActions, FormGroup, InputLabel, TextField, Button } from "@mui/material";
 
-const EditDeviceDialog = ({open, handleClose, currentUserLabel, saveUserLabel}) => {
+const EditDeviceDialog = ({open, handleClose, data}) => {
 
-    const [userLabel, setUserLabel] = useState(currentUserLabel);
+    const [userLabel, setUserLabel] = useState(data.label);
 
     const handleLabelChange = (event) => {
         setUserLabel(event.target.value)
@@ -11,18 +11,23 @@ const EditDeviceDialog = ({open, handleClose, currentUserLabel, saveUserLabel}) 
 
     const handleSave = () => 
     {
-        saveUserLabel = userLabel
+        postNewLabel();
         handleClose();
+    }
+    
+    const postNewLabel = () => {
+        console.log(userLabel)
+        //sem musím přídat POST CALL na API, aby se mi upravilo zařízení.
     }
 
 
     return(
-        <Dialog opne={open} onClose={handleClose} fullWidth={true}>
+        <Dialog open={open} onClose={handleClose} fullWidth={true}>
             <DialogTitle>Nastavení zařízení</DialogTitle>
             <DialogContent>
                 <FormGroup>
                     <InputLabel id="userName-label">Vlastní jméno zařízení</InputLabel>
-                    <TextField fullWidth label="Vlastní jméno zařízení" onChange={handleLabelChange}/>    
+                    <TextField fullWidth defaultValue={userLabel} onChange={handleLabelChange}/>    
                 </FormGroup>
             </DialogContent>
             <DialogActions>

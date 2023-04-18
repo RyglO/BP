@@ -7,12 +7,15 @@ const ListDevices = () => {
     
     const [devices, setDevices] = useState([]);
     const [openDialog, setOpenDialog] = useState(false); 
+    const [selectedDevice, setSelectedDevice] = useState(null);
 
-    const handleButtonClick = (davideID) => {
+    const handleButtonClick = (data) => {
         setOpenDialog(true);
+        setSelectedDevice(data);
     };
   
     const handleClose = () => {
+        setSelectedDevice(null);
         setOpenDialog(false);
     };
 
@@ -40,10 +43,13 @@ const ListDevices = () => {
         loadDevices()
     },[])
 
-    const renderDialog = (label) => {
-        return(
-            <EditDeviceDialog open={true} handleClose={handleClose} currentUserLabel={label} />
-        )
+    const renderDialog = (entityData) => {
+        if(selectedDevice === entityData)
+        {
+            return(
+                <EditDeviceDialog open={true} handleClose={handleClose} data={entityData} />
+            )    
+        }
     }
 
 
@@ -71,13 +77,14 @@ const ListDevices = () => {
                             <TableCell align="center">{data.id.entityType}</TableCell>
                             <TableCell align="center"></TableCell>
                             <TableCell align="center">
-                                <Button variant="outlined" color="secondary" onClick={handleButtonClick(data.id)}>
+                                <Button variant="outlined" color="secondary" onClick={() => handleButtonClick(data)}>
                                     Upravit 
                                 </Button>
-                                {openDialog && renderDialog(data.label)}
+                                {renderDialog(data)}
                             </TableCell>
                         </TableRow>
                     ))}
+                    
                     </TableBody>
                 </Table>
             </TableContainer>
