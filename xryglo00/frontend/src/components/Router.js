@@ -7,6 +7,7 @@ import Device_General from "./Modules/Devices/Dashboards/Device_General";
 import ListDevices from "./Modules/Devices/ListDevices";
 import { AuthContext, AuthProvider } from "./AuthContetxt";
 import ModuleList from "./ModulesList";
+import ListUsers from "./Modules/Users/ListUsers";
 
 const Router = () => 
     <BrowserRouter basename="/">
@@ -18,6 +19,7 @@ const Router = () =>
                     <>
                         <Route exact path='/' element={<ModuleList />} />
                         <Route path='/ListDevices' element={<ListDevices />} />
+                        <Route path='/Users' element={<ListUsers />} />
                         <Route path='/Devices' element={<DeviceDashboard />}/>
                         <Route path='/Device/:devicetype/:id' element={<Device_General />}/>
                     </>)}

@@ -1,89 +1,72 @@
-import React, { useState, useEffect } from 'react';
-import { DataGrid } from '@material-ui/data-grid';
-import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField } from '@material-ui/core';
-import axios from 'axios';
+import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import Auth from "../../Auth";
 
-const UserGrid = () => {
-  const [users, setUsers] = useState([]);
-  const [selectedUser, setSelectedUser] = useState(null);
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+const ListUsers = () => {
+  
+    const [users, setUsers] = useState([]);
+    const [openDialogNew, setOpenDialogNew] = useState(false);
 
-  const columns = [
-    { field: 'id', headerName: 'ID', width: 70 },
-    { field: 'name', headerName: 'Name', width: 130 },
-    { field: 'email', headerName: 'Email', width: 200 },
-    {
-      field: 'edit',
-      headerName: 'Edit',
-      width: 100,
-      renderCell: (params) => (
-        <Button variant="contained" color="primary" onClick={() => handleEdit(params.row)}>
-          Edit
-        </Button>
-      ),
-    },
-  ];
 
-  useEffect(() => {
-    axios.get('/api/users').then((response) => {
-      setUsers(response.data);
-    });
-  }, []);
-
-  const handleAdd = () => {
-    setSelectedUser(null);
-    setName('');
-    setEmail('');
-    setDialogOpen(true);
-  };
-
-  const handleEdit = (user) => {
-    setSelectedUser(user);
-    setName(user.name);
-    setEmail(user.email);
-    setDialogOpen(true);
-  };
-
-  const handleSave = () => {
-    const updatedUser = {
-      id: selectedUser ? selectedUser.id : users.length + 1,
-      name,
-      email,
-    };
-    if (selectedUser) {
-      const updatedUsers = users.map((user) => (user.id === selectedUser.id ? updatedUser : user));
-      setUsers(updatedUsers);
-    } else {
-      setUsers([...users, updatedUser]);
+    const loadUsers = () => {
+      const requestOptions = {
+        method: 'POST',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+            body: JSON.stringify({
+                "token": Auth.getJwt(),
+                "LoggedUser": Auth.getUserName(),
+            }),
+      }
+      fetch("api/users", requestOptions)
+        .then((response) => 
+            response.json())
+            .then((data) =>{
+            setUsers(data.data)
+        })
     }
-    setDialogOpen(false);
-  };
+    //Upravit a vytvořit API call na uživatele.
+  
+    useEffect(() => {
+      loadUsers()
+    }, [])
 
-  return (
-    <div style={{ height: 400, width: '100%' }}>
-      <Button variant="contained" color="primary" onClick={handleAdd}>
-        Add User
-      </Button>
-      <DataGrid rows={users} columns={columns} pageSize={5} />
-      <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)}>
-        <DialogTitle>{selectedUser ? 'Edit User' : 'Add User'}</DialogTitle>
-        <DialogContent>
-          <TextField label="Name" value={name} onChange={(e) => setName(e.target.value)} fullWidth />
-          <TextField label="Email" value={email} onChange={(e) => setEmail(e.target.value)} fullWidth />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setDialogOpen(false)} color="primary">
-            Cancel
+  	return (
+        <Paper sx={{ margin: "50px 50px 50px 50px"}}>
+          <Button variant='contained' sx={{float: 'right', margin:"10px"}} color="primary">
+            Přidat nového uživatele
           </Button>
-          <Button onClick={handleSave} color="primary">
-            Save
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
-  );
-};
+          <TableContainer>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell align="center">Datum vytvoření</TableCell>
+                    <TableCell align="center">Jméno</TableCell>
+                    <TableCell align="center">Přijmení</TableCell>
+                    <TableCell align="center">Email</TableCell>
+                    <TableCell align="center">Upravit</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {
+                    users.map((data) => (
+                      <TableRow RowKey={data.name}  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                        <TableCell align="center">{new Date(data.createdTime).toLocaleString("cs-CZ")}</TableCell>
+                        <TableCell align="center">John</TableCell>
+                        <TableCell align="center">Doe</TableCell>
+                        <TableCell align="center">johndoe@email.com</TableCell>
+                        <TableCell align="center">banán</TableCell>
+                        
+                      </TableRow>
+                    ))
+                  }
+                </TableBody>
+              </Table>
+          </TableContainer>
 
-export default UserGrid;
+    </Paper>
+
+)
+}
+export default ListUsers
