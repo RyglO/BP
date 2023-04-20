@@ -49,7 +49,7 @@ def thingsboard_GetDevices(JFTtoken, customerID):
         "Content-Type": "application/json;",
         "X-Authorization": "Bearer " + JFTtoken}
     parameters = {
-        "pageSize": "10",
+        "pageSize": "100",
         "page": "0",
     }
     response = get('https://wattee.net/api/customer/' + customerID + '/devices', headers = headers, params=parameters)
@@ -77,12 +77,26 @@ def thingsboard_GetValuesFromDevice(JFTtoken, deviceID, startTS, endTS, keys, or
             'interval': interval,
             'orderBy': order,
             'agg': agregate
-             
-
     }
     response = get('https://wattee.net/api/plugins/telemetry/DEVICE/'+deviceID+ '/values/timeseries', headers = headers, params=parameters)
-
     return response
 
+def thingsboard_GetAllUsersInCustomers(JFTtoken, customerID, sort, order):
+    headers = {
+        "Content-Type": "application/json;",
+        "X-Authorization": "Bearer " + JFTtoken}
+    parameters = {
+        'pageSize': 100,
+        'page': 0,
+        'sortProperty': sort, 
+        'orderBy': order
+    }
+    response = get('https://wattee.net/api/customer/'+customerID+'/users', headers = headers, params=parameters)
+    return response
 
-    
+def thingsboard_GetCurrentUserData(JWTtoken):
+    headers = {
+        "Content-Type": "application/json;",
+        "X-Authorization": "Bearer " + JWTtoken}
+    response = get('https://wattee.net/api/auth/user', headers=headers)
+    return response

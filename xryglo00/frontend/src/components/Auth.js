@@ -26,6 +26,14 @@ class Auth {
       return sessionStorage.getItem("userName")
     }
 
+    static setCustomerId = async (customerID) => {
+      sessionStorage.setItem("customerID", customerID)
+    }
+
+    static getCustomerID = () => {
+      return sessionStorage.getItem("customerID")
+    }
+
     static isAuthenticated = () => Boolean(Auth.getJwt())
   }
     //Might be usefull later

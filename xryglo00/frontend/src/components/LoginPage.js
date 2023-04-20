@@ -35,11 +35,29 @@ const LoginPage = () => {
         else{
             Auth.setJwt(data.token)
             Auth.setUserName(email.substring(0, email.indexOf('@')))
+            setUserInfo()
             setStatus({ msg: "Success", key: data.status })
             window.location.href = "/"
         }
     })
     }
+
+    const setUserInfo = () => {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+            body: JSON.stringify({
+                "token": Auth.getJwt()
+            }),
+        };
+        fetch("api/userInfo", requestOptions)
+        .then((response) => 
+        response.json())
+         .then((data) =>{   
+            Auth.setCustomerId(data.customerId.id)
+    })}
 
     return(
         <Grid container spacing={1}> 

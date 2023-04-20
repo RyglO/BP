@@ -41,3 +41,15 @@ class ValuesHandle(APIView):
         dct = json.load(request)
         response = thingsboard_GetValuesFromDevice(dct["token"], dct["DeviceID"], dct["startTS"], dct["endTS"], dct["keys"], dct["orderBy"], dct["interval"], dct["agg"])
         return Response(response.json(), status=status.HTTP_200_OK)
+
+class CustomersHandle(APIView):
+    def post(self, request, format=None):
+        dct = json.load(request)
+        response = thingsboard_GetAllUsersInCustomers(dct["token"], dct["customerID"], dct["sortProperty"], dct["order"])
+        return Response(response.json(), status=status.HTTP_200_OK)
+
+class UserInfoHandle(APIView):
+    def post(self, request, format=None):
+        dct = json.load(request)
+        response = thingsboard_GetCurrentUserData(dct["token"])
+        return Response(response.json(), status=status.HTTP_200_OK)
