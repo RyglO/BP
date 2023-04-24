@@ -53,3 +53,9 @@ class UserInfoHandle(APIView):
         dct = json.load(request)
         response = thingsboard_GetCurrentUserData(dct["token"])
         return Response(response.json(), status=status.HTTP_200_OK)
+
+class DeviceUserLabel(APIView):
+    def post(self, request, format=None):
+        dct = json.load(request)
+        response = None
+        return Response(response.json(), status=status.HTTP_200_OK)
