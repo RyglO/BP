@@ -6,6 +6,7 @@ class Auth {
     static logout = async () => {
       sessionStorage.removeItem(AUTH_TOKEN_NAME)
       sessionStorage.removeItem("userName")
+      sessionStorage.removeItem("customerID")
       window.location.href = "/login";
     }
   

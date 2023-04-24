@@ -28,21 +28,21 @@ const LoginPage = () => {
         fetch("api/login", requestOptions)
         .then((response) => 
         response.json())
-         .then((data) =>{   
+         .then(async(data) =>{   
         if (data.status > 200) 
             setStatus({ msg: "Chyba přihlášení", key: data.status })
             //tady volat
         else{
             Auth.setJwt(data.token)
             Auth.setUserName(email.substring(0, email.indexOf('@')))
-            setUserInfo()
+            await setUserInfo()
             setStatus({ msg: "Success", key: data.status })
             window.location.href = "/"
         }
     })
     }
 
-    const setUserInfo = () => {
+    const setUserInfo = async () => {
         const requestOptions = {
             method: 'POST',
             headers: {
@@ -52,12 +52,12 @@ const LoginPage = () => {
                 "token": Auth.getJwt()
             }),
         };
-        fetch("api/userInfo", requestOptions)
+        await fetch("api/userInfo", requestOptions)
         .then((response) => 
         response.json())
          .then((data) =>{   
             Auth.setCustomerId(data.customerId.id)
-    })}
+        })}
 
     return(
         <Grid container spacing={1}> 
