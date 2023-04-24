@@ -59,7 +59,6 @@ const ListDevices = () => {
             Přidat nové zařízení
         </Button>        
         <Paper sx={{ margin: "50px 50px 50px 50px" }} elevation={3}>
-
                 <TableContainer>
                     <Table>
                         <TableHead>
