@@ -62,7 +62,9 @@ const ListUsers = () => {
                         <TableCell align="center">{data.lastName}</TableCell>
                         <TableCell align="center">{data.email}</TableCell>
                         <TableCell align="center">{data.authority}</TableCell>
-                        <TableCell align="center">banán</TableCell> 
+                        <TableCell align="center">
+                          <Button variant="outlined" color="secondary">Upravit</Button>  
+                        </TableCell> 
                       </TableRow>
                     ))
                   }
