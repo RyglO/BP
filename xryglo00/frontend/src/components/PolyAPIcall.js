@@ -18,7 +18,7 @@ const loadDataPoly = (id, key, order, interval, aggregateFunction, startTS, endT
             "agg": aggregateFunction
         }),
     }
-    return fetch("http://127.0.0.1:8000/api/dataDevices", requestOptions)
+    return fetch("api/dataDevices", requestOptions)
     .then((response) =>
     response.json())
     .then((d) => {
