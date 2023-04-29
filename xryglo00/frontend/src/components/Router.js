@@ -8,6 +8,7 @@ import ListDevices from "./Modules/Devices/ListDevices";
 import { AuthContext, AuthProvider } from "./AuthContetxt";
 import ModuleList from "./ModulesList";
 import ListUsers from "./Modules/Users/ListUsers";
+import CurrentUserProfile from "./Modules/Users/CurrentuserProfile";
 
 const Router = () => 
     <BrowserRouter basename="/">
@@ -22,6 +23,7 @@ const Router = () =>
                         <Route path='/Users' element={<ListUsers />} />
                         <Route path='/Devices' element={<DeviceDashboard />}/>
                         <Route path='/Device/:devicetype/:id' element={<Device_General />}/>
+                        <Route path='/Profile' element={<CurrentUserProfile/>}/>
                     </>)}
 
                     <Route path='/login' element={<LoginPage />}> </Route>

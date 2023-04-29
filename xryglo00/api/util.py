@@ -101,12 +101,11 @@ def thingsboard_GetCurrentUserData(JWTtoken):
     response = get('https://wattee.net/api/auth/user', headers=headers)
     return response
 
-def thingsboard_SetDeviceLabel(JWTtoken, data, entityGroupId):
+def thingsboard_SetDeviceLabel(JWTtoken, data):
     headers = {
         "Content-Type": "application/json;",
         "X-Authorization": "Bearer " + JWTtoken}
-    #response = get('https://wattee.net/api/auth/user', headers=headers)
-    response = post('https://wattee.net/api/davice?entityGroupId'+entityGroupId, json=data)
+    response = post('https://wattee.net/api/davice', json=data)
     return response
 
 def thingsboard_AddEditUser(JWTtoken, data):

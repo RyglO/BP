@@ -58,11 +58,15 @@ class DeviceUserLabel(APIView):
     def post(self, request, format=None):
         dct = json.load(request)
         response = None
+        accessToken = request.headers.get('Authorization', '').split(' ')[-1]
+        data = str(dct["data"]).replace("'", "\"")
+        print(data)
+        response = thingsboard_SetDeviceLabel(accessToken, data)
+        print(response.json())
         return Response(response.json(), status=status.HTTP_200_OK)
 
 class EditUserHandle(APIView):
     def post(self, request, format=None):
-        print(request)
         dct = json.load(request)
         accessToken = request.headers.get('Authorization', '').split(' ')[-1]
         userdata = str(dct["userData"]).replace("'", "\"")

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Dialog, DialogContent, DialogTitle, DialogActions, FormGroup, InputLabel, TextField, Button } from "@mui/material";
+import Auth from "../../Auth";
 
 const EditDeviceDialog = ({open, handleClose, data}) => {
 
@@ -16,8 +17,20 @@ const EditDeviceDialog = ({open, handleClose, data}) => {
     }
     
     const postNewLabel = () => {
+        data.label = userLabel
+
         console.log(userLabel)
-        //sem musím přídat POST CALL na API, aby se mi upravilo zařízení.
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+                'Authorization': `Bearer ${Auth.getJwt()}`,
+            },
+            body: JSON.stringify({
+                data,
+            }),
+        };
+        fetch("api/deviceLabel", requestOptions)
     }
 
 
