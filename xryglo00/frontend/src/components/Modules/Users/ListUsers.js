@@ -19,7 +19,7 @@ const ListUsers = () => {
         setOpenDialogEdit(false);
     };
 
-    const loadUsers = () => {
+    const loadUsers = async () => {
       const requestOptions = {
         method: 'POST',
             headers: {
@@ -32,7 +32,7 @@ const ListUsers = () => {
                 "order": "ASC"
             }),
       }
-      fetch("api/customers", requestOptions)
+      await fetch("api/customers", requestOptions)
         .then((response) => 
             response.json())
             .then((data) =>{
