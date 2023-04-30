@@ -24,6 +24,8 @@ const Router = () =>
                         <Route path='/Devices' element={<DeviceDashboard />}/>
                         <Route path='/Device/:devicetype/:id' element={<Device_General />}/>
                         <Route path='/Profile' element={<CurrentUserProfile/>}/>
+                        <Route path='/login' element={<ModuleList/>}/>
+                        
                     </>)}
 
                     <Route path='/login' element={<LoginPage />}> </Route>

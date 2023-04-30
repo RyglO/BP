@@ -72,3 +72,11 @@ class EditUserHandle(APIView):
         userdata = str(dct["userData"]).replace("'", "\"")
         response = thingsboard_AddEditUser(accessToken, userdata)
         return Response(response.json(), status=status.HTTP_200_OK)
+    
+class ChangePasswordHandle(APIView):
+    def post(self, request, format=None):
+        dct = json.load(request)
+        accessToken = request.headers.get('Authorization', '').split(' ')[-1]
+        userdata = str(dct).replace("'", "\"")
+        response = thingsboard_ChangePasswordCurrentUser(accessToken, userdata)
+        return Response(response.json(), status=status.HTTP_200_OK)

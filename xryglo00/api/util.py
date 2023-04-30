@@ -5,9 +5,10 @@ from rest_framework import status
 from rest_framework.response import Response
 import json
 
+BASE_ADDRESS = "https://wattee.net/api/"
 
 def thingsboard_login(email, password):
-    response = post('https://wattee.net/api/auth/login',json={
+    response = post(BASE_ADDRESS+'auth/login',json={
         'username': email,
         'password': password
     }).json()
@@ -41,7 +42,7 @@ def thingsboard_getUsers(JFTtoken, userSearch):
         "page": "0",
         "textSearch": userSearch,
     }
-    response = get('https://wattee.net/api/user/users',headers = headers, params=parameters)
+    response = get(BASE_ADDRESS + 'user/users',headers = headers, params=parameters)
     return response
 
 def thingsboard_GetDevices(JFTtoken, customerID):
@@ -52,7 +53,7 @@ def thingsboard_GetDevices(JFTtoken, customerID):
         "pageSize": "100",
         "page": "0",
     }
-    response = get('https://wattee.net/api/customer/' + customerID + '/devices', headers = headers, params=parameters)
+    response = get(BASE_ADDRESS + 'customer/' + customerID + '/devices', headers = headers, params=parameters)
 
     return response
 
@@ -63,7 +64,7 @@ def thingsboard_GetLastTSfromDevice(JFTtoken, deviceID):
     parameters = {
             'keys': 'counter',
     }
-    response = get('https://wattee.net:443/api/plugins/telemetry/DEVICE/'+deviceID+ '/values/attributes/CLIENT_SCOPE', headers = headers, params=parameters)
+    response = get(BASE_ADDRESS + 'plugins/telemetry/DEVICE/'+deviceID+ '/values/attributes/CLIENT_SCOPE', headers = headers, params=parameters)
     return response
 
 def thingsboard_GetValuesFromDevice(JFTtoken, deviceID, startTS, endTS, keys, order, interval, agregate):
@@ -78,7 +79,7 @@ def thingsboard_GetValuesFromDevice(JFTtoken, deviceID, startTS, endTS, keys, or
             'orderBy': order,
             'agg': agregate
     }
-    response = get('https://wattee.net/api/plugins/telemetry/DEVICE/'+deviceID+ '/values/timeseries', headers = headers, params=parameters)
+    response = get( BASE_ADDRESS + 'plugins/telemetry/DEVICE/'+deviceID+ '/values/timeseries', headers = headers, params=parameters)
     return response
 
 def thingsboard_GetAllUsersInCustomers(JFTtoken, customerID, sort, order):
@@ -91,21 +92,21 @@ def thingsboard_GetAllUsersInCustomers(JFTtoken, customerID, sort, order):
         'sortProperty': sort, 
         'orderBy': order
     }
-    response = get('https://wattee.net/api/customer/'+customerID+'/users', headers = headers, params=parameters)
+    response = get(BASE_ADDRESS + 'customer/'+customerID+'/users', headers = headers, params=parameters)
     return response
 
 def thingsboard_GetCurrentUserData(JWTtoken):
     headers = {
         "Content-Type": "application/json;",
         "X-Authorization": "Bearer " + JWTtoken}
-    response = get('https://wattee.net/api/auth/user', headers=headers)
+    response = get(BASE_ADDRESS + 'auth/user', headers=headers)
     return response
 
 def thingsboard_SetDeviceLabel(JWTtoken, data):
     headers = {
         "Content-Type": "application/json;",
         "X-Authorization": "Bearer " + JWTtoken}
-    response = post('https://wattee.net/api/davice', json=data)
+    response = post(BASE_ADDRESS + 'davice', json=data)
     return response
 
 def thingsboard_AddEditUser(JWTtoken, data):
@@ -113,5 +114,12 @@ def thingsboard_AddEditUser(JWTtoken, data):
     headers = {
         "Content-Type": "application/json;",
         "X-Authorization": "Bearer " + JWTtoken}
-    response = post('https://wattee.net/api/user', json=data)
+    response = post(BASE_ADDRESS + 'user', json=data)
+    return response
+
+def thingsboard_ChangePasswordCurrentUser(JWTtoken, data):
+    headers = {
+        "Content-Type": "application/json;",
+        "X-Authorization": "Bearer " + JWTtoken}
+    response = post(BASE_ADDRESS + 'auth/changePassword')
     return response
