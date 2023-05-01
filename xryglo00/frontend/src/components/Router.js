@@ -9,6 +9,7 @@ import { AuthContext, AuthProvider } from "./AuthContetxt";
 import ModuleList from "./ModulesList";
 import ListUsers from "./Modules/Users/ListUsers";
 import CurrentUserProfile from "./Modules/Users/CurrentuserProfile";
+import NotFoundPage from "./NotFoundPage";
 
 const Router = () => 
     <BrowserRouter basename="/">
@@ -29,7 +30,7 @@ const Router = () =>
                     </>)}
 
                     <Route path='/login' element={<LoginPage />}> </Route>
-                    <Route path="*" element={<Navigate to="/login"/>}/>
+                    <Route path="*" element={<NotFoundPage/>}/>
                 </Routes>
             }
         </AuthContext.Consumer>
