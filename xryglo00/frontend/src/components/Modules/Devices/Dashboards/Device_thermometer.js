@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Auth from "../../../Auth";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { Button, CardContent, Grid, Dialog, DialogTitle, DialogContent} from "@mui/material";
+import { Button, CardContent, Grid, Dialog, DialogTitle, DialogContent, Paper} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import loadDataPoly from "../../../PolyAPIcall";
@@ -87,30 +87,31 @@ const Device_thermometer = () => {
         )
      }
 
-    return (
+    return (        
         <Grid>
-            <Grid item xs align="center">
-                <Card variant="outlined" sx={{maxWidth: 850}}>
-                    <CardContent>
-                        <Typography component="h4" variant="h4">Teplota</Typography>
-                        <ResponsiveContainer width="100%" height={500}>
-                            <LineChart data={dataThermo} margin={{top: 5, right: 30, left: 20, bottom: 5,}}>
-                                <CartesianGrid strokeDasharray="3 3"/>
-                                <XAxis dataKey="time" />
-                                <YAxis />
-                                <Tooltip />
-                                <Legend />
-                                <Line type="monotone" dataKey="temperature" stroke="#8884d8" name="Teplota"/> 
-                            </LineChart>
-                        </ResponsiveContainer>
-                    </CardContent>
-                </Card>
+            <Grid item xs align="center" sx={{padding: "20px 20px 20px 20px"}}>
+                    <Card variant="outlined" sx={{maxWidth: 850}}>
+                        <CardContent>
+                            <Typography component="h4" variant="h4">Teplota</Typography>
+                            <ResponsiveContainer width="100%" height={500}>
+                                <LineChart data={dataThermo} margin={{top: 5, right: 30, left: 20, bottom: 5,}}>
+                                    <CartesianGrid strokeDasharray="3 3"/>
+                                    <XAxis dataKey="time" />
+                                    <YAxis />
+                                    <Tooltip />
+                                    <Legend />
+                                    <Line type="monotone" dataKey="temperature" stroke="#8884d8" name="Teplota"/> 
+                                </LineChart>
+                            </ResponsiveContainer>
+                        </CardContent>
+                    </Card>
             </Grid>
-            <Grid item xs align="center">
+            <Grid item xs align="center" sx={{paddingTop: "20px"}}>
                 <Button variant='contained' onClick={handleButtonClick}>Nastavení</Button>
                 {open && renderDialog()}
             </Grid>
         </Grid>
+        
     )
 } 
 

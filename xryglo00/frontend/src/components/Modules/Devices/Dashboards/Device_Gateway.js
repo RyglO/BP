@@ -84,11 +84,11 @@ const Device_Gateway = () => {
         })
         loadDataPoly(id, 'export_active_power', 'ASC', '86400000', 'AVG', new Date().setHours(date.getHours() - (7*24)), Date.now()).then(response => {
             const keys = Object.keys(response)
-            setDataHistExport(response[keys[0]].map((_,i) => keys.reduce((acc,k) => ({...acc, [k]:Number((response[k][i+1] == null ? 0 : response[k][i+1].value - response[k][i].value)).toFixed(2)}),{time:(new Date(response[keys[0]][i].ts)).toLocaleString("cs-CZ")})))
+            setDataHistExport(response[keys[0]].map((_,i) => keys.reduce((acc,k) => ({...acc, [k]:Number((response[k][i+1] == null ? 0 : response[k][i+1].value - response[k][i].value)).toFixed(1)}),{time:(new Date(response[keys[0]][i].ts)).toLocaleString("cs-CZ")})))
         })
         loadDataPoly(id, 'import_active_power', 'ASC', '86400000', 'AVG', new Date().setHours(date.getHours() - (7*24)), Date.now()).then(response => {
             const keys = Object.keys(response)
-            setDataHistImport(response[keys[0]].map((_,i) => keys.reduce((acc,k) => ({...acc, [k]:Number((response[k][i+1] == null ? 0 : response[k][i+1].value - response[k][i].value)).toFixed(2)}),{time:(new Date(response[keys[0]][i].ts)).toLocaleString("cs-CZ")})))
+            setDataHistImport(response[keys[0]].map((_,i) => keys.reduce((acc,k) => ({...acc, [k]:Number((response[k][i+1] == null ? 0 : response[k][i+1].value - response[k][i].value)).toFixed(1)}),{time:(new Date(response[keys[0]][i].ts)).toLocaleString("cs-CZ")})))
             console.log(response)
         })
     }

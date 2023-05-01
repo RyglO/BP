@@ -26,11 +26,11 @@ const Router = () =>
                         <Route path='/Device/:devicetype/:id' element={<Device_General />}/>
                         <Route path='/Profile' element={<CurrentUserProfile/>}/>
                         <Route path='/login' element={<ModuleList/>}/>
-                        
+                        <Route path="*" element={<NotFoundPage/>}/>
                     </>)}
 
                     <Route path='/login' element={<LoginPage />}> </Route>
-                    <Route path="*" element={<NotFoundPage/>}/>
+                    <Route path="*" element={<Navigate to="/login"/>}/>
                 </Routes>
             }
         </AuthContext.Consumer>
