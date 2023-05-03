@@ -76,31 +76,31 @@ const Device_thermometer = () => {
             setDataThermo(response[keys[0]].map((_,i) => keys.reduce((acc,k) => ({...acc, [k]:Number(response[k][i].value).toFixed(2)}),{time:(new Date(response[keys[0]][i].ts).toLocaleString("cs-CZ"))})))
         })
     }
-     useEffect(() => console.log(dataThermo), [setDataThermo, dataThermo])
+    useEffect(() => console.log(dataThermo), [setDataThermo, dataThermo])
 
 
-     const renderDialog = () => {
+    const renderDialog = () => {
 
         console.log(settings)
         return(
             <GraphSettingsDialog open={true} handleClose={handleClose} currentSettings={settings} saveSettings={settingsChanged}/>
         )
-     }
+    }
 
     return (        
         <Grid>
             <Grid item xs align="center" sx={{padding: "20px 20px 20px 20px"}}>
-                    <Card variant="outlined" sx={{maxWidth: 850}}>
+                    <Card variant="outlined" sx={{maxWidth: 1000}}>
                         <CardContent>
                             <Typography component="h4" variant="h4">Teplota</Typography>
                             <ResponsiveContainer width="100%" height={500}>
                                 <LineChart data={dataThermo} margin={{top: 5, right: 30, left: 20, bottom: 5,}}>
                                     <CartesianGrid strokeDasharray="3 3"/>
-                                    <XAxis dataKey="time" />
-                                    <YAxis />
+                                    <XAxis dataKey="time" tick={{fontSize: "12px"}}/>
+                                    <YAxis tickFormatter={(tick) => `${tick} °C`} tick={{fontSize: "12px"}}/>
                                     <Tooltip />
                                     <Legend />
-                                    <Line type="monotone" dataKey="temperature" stroke="#8884d8" name="Teplota"/> 
+                                    <Line type="monotone" dataKey="temperature" stroke="#8884d8" name="Teplota" dot={false} strokeWidth={3}/> 
                                 </LineChart>
                             </ResponsiveContainer>
                         </CardContent>

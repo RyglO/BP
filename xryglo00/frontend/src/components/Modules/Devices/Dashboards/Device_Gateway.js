@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart, Bar } from 'recharts';
-import { CardContent, Grid } from "@mui/material";
-import Typography from "@mui/material/Typography";
-import Card from "@mui/material/Card";
+import { CardContent, Grid, Box, Button, Card, Typography, IconButton } from "@mui/material";
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import loadDataPoly from "../../../PolyAPIcall";
-import {Button} from "@mui/material";
 import GraphSettingsDialog from './GraphSettingsDialog'
+import moment from "moment"
 
 const Device_Gateway = () => {
 
@@ -19,6 +18,10 @@ const Device_Gateway = () => {
     const [dataHistImport, setDataHistImport] = useState([])
 
     const {id} = useParams(); 
+
+    const formatXAxis = (tickFormat) => {
+        return moment.unix(tickFormat).format("DD/MM");
+      };
 
     let settings = {
         isLive: false,
@@ -53,8 +56,21 @@ const Device_Gateway = () => {
         return(
             <GraphSettingsDialog open={true} handleClose={handleClose} currentSettings={settings} saveSettings={settingsChanged}/>
         )
-     }
+    }
 
+    const findDomains = (data) => {
+        const values = data.reduce((acc, curr) => {
+            Object.keys(curr).forEach((key) => {
+              if (key !== 'time') {
+                acc.push(parseFloat(curr[key]));
+              }
+            });
+            return acc;
+        }, []);
+        const yMin = Math.min(...values);
+        const yMax = Math.max(...values);
+        return [yMin, yMax];
+    }
     
 
     const loadAll = () => {
@@ -92,7 +108,6 @@ const Device_Gateway = () => {
             console.log(response)
         })
     }
-//() => (response[k-1][i].value == null ? 0 : response[k][i].value - response[k-1][i].value)
 
     useEffect(() => {
         loadAll('voltage_l1,voltage_l2,voltage_l3')
@@ -108,78 +123,87 @@ const Device_Gateway = () => {
     
 
     return (
+        <Box margin={"20px 20px 20px 20px "}>
         <Grid container spacing={2}>
             <Grid item xs={12} sm={6} md={6} lg ={3} align="center">
             <Card variant="outlined" sx={{ maxWidth: 550 }}> 
             <CardContent>
-                <Typography component="h6" variant="h6" align="left">AC Napětí</Typography> 
+                <Grid container>
+                    <Grid item xs>
+                        <Typography component="h6" variant="button" align="left">AC Napětí</Typography> 
+                    </Grid>
+                    <Grid item>
+                        <IconButton sx={{padding: "0px 0px 0px 0px", color: "black"}}>
+                            <FileDownloadIcon/>    
+                        </IconButton>
+                    </Grid>
+                </Grid>
                 <ResponsiveContainer width="100%" aspect={2 / 1}>
                     <LineChart data={dataAC} margin={{top: 5, right: 30, left: 20, bottom: 5,}}>
-                        <CartesianGrid strokeDasharray="5 5" />
-                        <XAxis dataKey="time" />
-                        <YAxis tickFormatter={(tick) => `${tick} V`}/>  
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="time" tick={{fontSize: "12px"}}/>
+                        <YAxis tickFormatter={(tick) => `${tick} V`} domain={findDomains(dataAC)} tick={{fontSize: "12px"}}/>  
                         <Tooltip />
                         <Legend />
-                        <Line type="monotone" dataKey="voltage_l1" stroke="#8884d8" name="Fáze L1" dot={false}/>
-                        <Line type="monotone" dataKey="voltage_l2" stroke="#82ca9d" name="Fáze L2" dot={false}/>
-                        <Line type="monotone" dataKey="voltage_l3" stroke="#ff0000" name="Fáze L3" dot={false}/>
+                        <Line type="monotone" dataKey="voltage_l1" stroke="#8884d8" name="Fáze L1" dot={false} strokeWidth={2}/>
+                        <Line type="monotone" dataKey="voltage_l2" stroke="#82ca9d" name="Fáze L2" dot={false} strokeWidth={2}/>
+                        <Line type="monotone" dataKey="voltage_l3" stroke="#ff0000" name="Fáze L3" dot={false} strokeWidth={2}/>
                     </LineChart>    
                 </ResponsiveContainer>
             </CardContent>   
             </Card>
             </Grid>
-            
+
             <Grid item xs={12} sm={6} md={6} lg ={3} align="center">
             <Card variant="outlined" sx={{ maxWidth: 550 }}> 
             <CardContent>
-                <Typography component="h6" variant="h6" align="left">AC činný výkon</Typography>
+                <Grid container>
+                    <Grid item xs>
+                        <Typography component="h6" variant="button" align="left">AC činný výkon</Typography> 
+                    </Grid>
+                    <Grid item>
+                        <IconButton sx={{padding: "0px 0px 5px 0px", color: "black"}}>
+                            <FileDownloadIcon/>    
+                        </IconButton>
+                    </Grid>
+                </Grid>
                 <ResponsiveContainer width="100%" aspect={2 / 1}>
-                    <LineChart data={dataACactive} margin={{top: 5, right: 30, left: 20, bottom: 5,}}>
+                    <LineChart data={dataACactive} margin={{top: 5, right: 30, left: 5, bottom: 5,}}>
                         <CartesianGrid strokeDasharray="5 5" />
-                        <XAxis dataKey="time" />
-                        <YAxis allowDataOverflow={false} tickFormatter={(tick) => `${tick} W`}/>
+                        <XAxis dataKey="time" tick={{fontSize: "12px", lineHeight: '16px' }}/>
+                        <YAxis allowDataOverflow={false} tickFormatter={(tick) => `${tick} W`} domain={findDomains(dataACactive)} tick={{fontSize: "12px"}}/>
                         <Tooltip />
                         <Legend />
-                        <Line type="monotone" dataKey="power_l1" stroke="#8884d8" name="Fáze L1"/>
-                        <Line type="monotone" dataKey="power_l2" stroke="#82ca9d" name="Fáze L2"/>
-                        <Line type="monotone" dataKey="power_l3" stroke="#ff0000" name="Fáze L3"/>
+                        <Line type="monotone" dataKey="power_l1" stroke="#8884d8" name="Fáze L1" dot={false} strokeWidth={2}/>
+                        <Line type="monotone" dataKey="power_l2" stroke="#82ca9d" name="Fáze L2" dot={false} strokeWidth={2}/>
+                        <Line type="monotone" dataKey="power_l3" stroke="#ff0000" name="Fáze L3" dot={false} strokeWidth={2}/>
                     </LineChart>    
                 </ResponsiveContainer>    
             </CardContent>
             </Card>
             </Grid>
-
-            {/* <Grid item xs align="center">
-                <Card variant="outlined" sx={{ maxWidth: 550 }}> 
-                <CardContent>
-                    <Typography component="h6" variant="h6" align="left">AC Čistý výkon</Typography> 
-                <LineChart width={500} height={300} data={dataACcurrent} margin={{top: 5, right: 30, left: 20, bottom: 5,}}>
-                    <CartesianGrid strokeDasharray="5 5" />
-                    <XAxis dataKey="time" />
-                    <YAxis tickFormatter={(tick) => `${tick} W`}/>
-                    <Tooltip />
-                    <Legend />
-                    <Line type="monotone" dataKey="current_l1" stroke="#8884d8" name="Fáze L1"/>
-                    <Line type="monotone" dataKey="current_l2" stroke="#82ca9d" name="Fáze L2"/>
-                    <Line type="monotone" dataKey="current_l3" stroke="#ff0000" name="Fáze L3"/>
-                </LineChart>
-                </CardContent>
-                
-                </Card>
-            </Grid> */}
-            
+        
             <Grid item xs={12} sm={12} md={12} lg ={6} align="center">
             <Card variant="outlined" sx={{ maxWidth: 850 }}> 
             <CardContent>
-                <Typography component="h6" variant="h6" align="left">Průběžná spotřeba</Typography>
+                <Grid container>
+                    <Grid item xs>
+                        <Typography component="h6" variant="button" align="left">Průběžná spotřeba</Typography> 
+                    </Grid>
+                    <Grid item>
+                        <IconButton sx={{padding: "0px 0px 0px 0px", color: "black"}}>
+                            <FileDownloadIcon/>    
+                        </IconButton>
+                    </Grid>
+                </Grid>
                 <ResponsiveContainer width="100%" aspect={4 / 1}>
                     <LineChart  data={dataImport} margin={{top: 5, right: 30, left: 20, bottom: 5,}}>
                         <CartesianGrid strokeDasharray="5 5" />
-                        <XAxis dataKey="time" />
-                        <YAxis tickFormatter={(tick) => `${tick} kVh`}/>
+                        <XAxis dataKey="time" tick={{fontSize: "12px"}}/>
+                        <YAxis tickFormatter={(tick) => `${tick} kWh`} domain={findDomains(dataImport)} tick={{fontSize: "12px"}}/>
                         <Tooltip />
                         <Legend />
-                        <Line type="monotone" dataKey="import_active_power" stroke="#0000FF" name="Import power"/>
+                        <Line type="monotone" dataKey="import_active_power" stroke="#0000FF" name="Import power" dot={false} strokeWidth={2}/>
                     </LineChart>    
                 </ResponsiveContainer> 
             </CardContent>
@@ -189,12 +213,21 @@ const Device_Gateway = () => {
             <Grid item xs={12} sm={6} md={6} lg ={3} align="center">
             <Card variant="outlined" sx={{ maxWidth: 550 }}> 
             <CardContent>
-                <Typography component="h6" variant="h6" align="left">Spotřeba</Typography>
+                <Grid container>
+                    <Grid item xs>
+                        <Typography component="h6" variant="button" align="left">Spotřeba</Typography> 
+                    </Grid>
+                    <Grid item>
+                        <IconButton sx={{padding: "0px 0px 0px 0px", color: "black"}}>
+                            <FileDownloadIcon/>    
+                        </IconButton>
+                    </Grid>
+                </Grid>
                 <ResponsiveContainer width="100%" aspect={2 / 1}>
                     <BarChart data={dataHistImport} margin={{top: 5, right: 30, left: 20, bottom: 5,}}>
                         <CartesianGrid strokeDasharray="5 5" />
-                        <XAxis dataKey="time" />
-                        <YAxis allowDataOverflow={false} tickFormatter={(tick) => `${tick} kWh`}/>
+                        <XAxis dataKey="time" tick={{fontSize: "12px"}}/>
+                        <YAxis allowDataOverflow={false} tickFormatter={(tick) => `${tick} kWh`} domain={findDomains(dataHistImport)} tick={{fontSize: "12px"}} />
                         <Tooltip />
                         <Legend />
                         <Bar dataKey="import_active_power" fill="#FF0000" name="Import Power"/>
@@ -207,12 +240,21 @@ const Device_Gateway = () => {
             <Grid item xs={12} sm={6} md={6} lg ={3} align="center">
             <Card variant="outlined" sx={{ maxWidth: 550 }}> 
             <CardContent>
-                <Typography component="h6" variant="h6" align="left">Výroba</Typography>
+                <Grid container>
+                    <Grid item xs>
+                        <Typography component="h6" variant="button" align="left">Výroba</Typography> 
+                    </Grid>
+                    <Grid item>
+                        <IconButton sx={{padding: "0px 0px 0px 0px", color: "black"}}>
+                            <FileDownloadIcon/>    
+                        </IconButton>
+                    </Grid>
+                </Grid>
                 <ResponsiveContainer width="100%" aspect={2 / 1}>
                     <BarChart data={dataHistExport} margin={{top: 5, right: 30, left: 20, bottom: 5,}}>
                         <CartesianGrid strokeDasharray="5 5" />
-                        <XAxis dataKey="time" />
-                        <YAxis allowDataOverflow={false} tickFormatter={(tick) => `${tick} kWh`}/>
+                        <XAxis dataKey="time" tick={{fontSize: "12px"}}/>
+                        <YAxis allowDataOverflow={false} tickFormatter={(tick) => `${tick} kWh`} domain={findDomains(dataHistExport)} tick={{fontSize: "12px"}}/>
                         <Tooltip />
                         <Legend />
                         <Bar dataKey="export_active_power" fill="#32CD32" name="Export Power"/>
@@ -226,15 +268,24 @@ const Device_Gateway = () => {
             <Grid item xs={12} sm={12} md={12} lg ={6} align="center">
             <Card variant="outlined" sx={{ maxWidth: 850 }}> 
             <CardContent> 
-                <Typography component="h6" variant="h6" align="left">Průběžná výroba</Typography>
+                <Grid container>
+                    <Grid item xs>
+                        <Typography component="h6" variant="button" align="left">Průběžná výroba</Typography> 
+                    </Grid>
+                    <Grid item>
+                        <IconButton sx={{padding: "0px 0px 0px 0px", color: "black"}}>
+                            <FileDownloadIcon/>    
+                        </IconButton>
+                    </Grid>
+                </Grid>
                 <ResponsiveContainer width="100%" aspect={4 / 1}>
                      <LineChart  data={dataExport} margin={{top: 5, right: 30, left: 20, bottom: 5,}}>
                         <CartesianGrid strokeDasharray="5 5" />
-                        <XAxis dataKey="time" />
-                        <YAxis allowDataOverflow={false} tickFormatter={(tick) => `${tick} kVh`}/>
+                        <XAxis dataKey="time" tick={{fontSize: "12px", lineHeight: '16px' }} />
+                        <YAxis allowDataOverflow={false} tickFormatter={(tick) => `${tick} kWh`} domain={findDomains(dataExport)} tick={{fontSize: "12px"}}/>
                         <Tooltip />
                         <Legend />
-                        <Line type="monotone" dataKey="export_active_power" stroke="#0000FF" name="Export power"/>
+                        <Line type="monotone" dataKey="export_active_power" stroke="#0000FF" name="Export power" dot={false} strokeWidth={2}/>
                     </LineChart>   
                 </ResponsiveContainer>
                     
@@ -245,7 +296,8 @@ const Device_Gateway = () => {
                 <Button variant='contained' onClick={handleButtonClick}>Nastavení</Button>
                 {open && renderDialog()}
             </Grid>
-        </Grid>  
+        </Grid> 
+        </Box> 
     )
 }
 
