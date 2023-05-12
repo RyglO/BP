@@ -9,7 +9,7 @@ const Footer = () => {
             position: 'fixed',
             bottom: 0,
             width: '100%',
-            backgroundColor: "white"
+            backgroundColor: "whitesmoke"
             }} component="footer" square variant="string">
             <Box sx={{
                 flexGrow: 1,
