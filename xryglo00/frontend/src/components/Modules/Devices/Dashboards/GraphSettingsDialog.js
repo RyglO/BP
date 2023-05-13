@@ -53,6 +53,7 @@ const GraphSettingsDialog = ({open, handleClose, currentSettings, saveSettings})
                             <MenuItem value={15}>15 minut</MenuItem>
                             <MenuItem value={30}>30 minut</MenuItem>
                             <MenuItem value={60}>60 minut</MenuItem>
+                            <MenuItem value={360}>6 hodin</MenuItem>
                         </Select>
                         <InputLabel id="history-label">Zobrazované období</InputLabel>
                         <Select value={historyValue} onChange={handleHistoryChange}>
@@ -60,7 +61,8 @@ const GraphSettingsDialog = ({open, handleClose, currentSettings, saveSettings})
                             <MenuItem value={560}>6 hodin</MenuItem>
                             <MenuItem value={720}>12 hodin</MenuItem>
                             <MenuItem value={1440}>24 hodin</MenuItem>
-                            <MenuItem value={2880}>48 dny</MenuItem>
+                            <MenuItem value={2880}>48 hodin</MenuItem>
+                            <MenuItem value={10080}>Poslední týden</MenuItem>
                         </Select>
                         <FormControlLabel control={<Switch checked={isLive} onChange={handleLiveChange}/>} label = "Živá data" />    
                 </FormGroup>

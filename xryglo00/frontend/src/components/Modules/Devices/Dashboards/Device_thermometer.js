@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Auth from "../../../Auth";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { Button, CardContent, Grid, Dialog, DialogTitle, DialogContent, Paper} from "@mui/material";
+import { Button, CardContent, Grid, IconButton, Dialog, DialogTitle, DialogContent, Paper} from "@mui/material";
 import Typography from "@mui/material/Typography";
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import Card from "@mui/material/Card";
 import loadDataPoly from "../../../PolyAPIcall";
 import GraphSettingsDialog from './GraphSettingsDialog'
@@ -92,7 +93,16 @@ const Device_thermometer = () => {
             <Grid item xs align="center" sx={{padding: "20px 20px 20px 20px"}}>
                     <Card variant="outlined" sx={{maxWidth: 1000}}>
                         <CardContent>
-                            <Typography component="h4" variant="h4">Teplota</Typography>
+                            <Grid container>
+                                <Grid item xs>
+                                    <Typography component="h6" variant="button" align="left">Teplota</Typography> 
+                                </Grid>
+                                <Grid item>
+                                    <IconButton sx={{padding: "0px 0px 0px 0px", color: "black"}} onClick={() => csvDownload({data: dataExport, headers: ["Time", "Export Power"]})}>
+                                        <FileDownloadIcon/>    
+                                    </IconButton>
+                                </Grid>
+                            </Grid>
                             <ResponsiveContainer width="100%" height={500}>
                                 <LineChart data={dataThermo} margin={{top: 5, right: 30, left: 20, bottom: 5,}}>
                                     <CartesianGrid strokeDasharray="3 3"/>

@@ -6,6 +6,7 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import loadDataPoly from "../../../PolyAPIcall";
 import GraphSettingsDialog from './GraphSettingsDialog'
 import moment from "moment"
+import csvDownload from 'json-to-csv-export'
 
 const Device_Gateway = () => {
 
@@ -133,7 +134,7 @@ const Device_Gateway = () => {
                         <Typography component="h6" variant="button" align="left">AC Napětí</Typography> 
                     </Grid>
                     <Grid item>
-                        <IconButton sx={{padding: "0px 0px 0px 0px", color: "black"}}>
+                        <IconButton sx={{padding: "0px 0px 0px 0px", color: "black"}} onClick={() => csvDownload({data: dataAC, headers: ["Time", "Fáze L1", "Fáze L2", "Fáze L3"]})}>
                             <FileDownloadIcon/>    
                         </IconButton>
                     </Grid>
@@ -162,7 +163,7 @@ const Device_Gateway = () => {
                         <Typography component="h6" variant="button" align="left">AC činný výkon</Typography> 
                     </Grid>
                     <Grid item>
-                        <IconButton sx={{padding: "0px 0px 5px 0px", color: "black"}}>
+                        <IconButton sx={{padding: "0px 0px 5px 0px", color: "black"}} onClick={() => csvDownload({data: dataACactive, headers: ["Time", "Fáze L1", "Fáze L2", "Fáze L3"]})}>
                             <FileDownloadIcon/>    
                         </IconButton>
                     </Grid>
@@ -191,7 +192,7 @@ const Device_Gateway = () => {
                         <Typography component="h6" variant="button" align="left">Průběžná spotřeba</Typography> 
                     </Grid>
                     <Grid item>
-                        <IconButton sx={{padding: "0px 0px 0px 0px", color: "black"}}>
+                        <IconButton sx={{padding: "0px 0px 0px 0px", color: "black"}} onClick={() => csvDownload({data: dataImport, headers: ["Time", "Import power"]})}>
                             <FileDownloadIcon/>    
                         </IconButton>
                     </Grid>
@@ -218,7 +219,7 @@ const Device_Gateway = () => {
                         <Typography component="h6" variant="button" align="left">Spotřeba</Typography> 
                     </Grid>
                     <Grid item>
-                        <IconButton sx={{padding: "0px 0px 0px 0px", color: "black"}}>
+                        <IconButton sx={{padding: "0px 0px 0px 0px", color: "black"}} onClick={() => csvDownload({data: dataHistImport, headers: ["Time", "Import Power"]})}>
                             <FileDownloadIcon/>    
                         </IconButton>
                     </Grid>
@@ -245,7 +246,7 @@ const Device_Gateway = () => {
                         <Typography component="h6" variant="button" align="left">Výroba</Typography> 
                     </Grid>
                     <Grid item>
-                        <IconButton sx={{padding: "0px 0px 0px 0px", color: "black"}}>
+                        <IconButton sx={{padding: "0px 0px 0px 0px", color: "black"}} onClick={() => csvDownload({data: dataHistExport, headers: ["Time", "Export Power"]})}>
                             <FileDownloadIcon/>    
                         </IconButton>
                     </Grid>
@@ -273,7 +274,7 @@ const Device_Gateway = () => {
                         <Typography component="h6" variant="button" align="left">Průběžná výroba</Typography> 
                     </Grid>
                     <Grid item>
-                        <IconButton sx={{padding: "0px 0px 0px 0px", color: "black"}}>
+                        <IconButton sx={{padding: "0px 0px 0px 0px", color: "black"}} onClick={() => csvDownload({data: dataExport, headers: ["Time", "Export Power"]})}>
                             <FileDownloadIcon/>    
                         </IconButton>
                     </Grid>

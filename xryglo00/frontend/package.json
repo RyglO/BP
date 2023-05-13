@@ -27,6 +27,7 @@
     "@mui/icons-material": "^5.10.14",
     "@mui/material": "^5.10.14",
     "chart.js": "^4.2.1",
+    "json-to-csv-export": "^2.1.1",
     "moment": "^2.29.4",
     "react-chartjs-2": "^5.2.0",
     "react-router-dom": "^6.4.3",
