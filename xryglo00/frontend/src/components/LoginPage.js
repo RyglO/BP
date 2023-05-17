@@ -70,7 +70,7 @@ const LoginPage = () => {
         return (
             <Container maxWidth="xs">
                 <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center',}}>
-                    <Avatar sx={{ m: 1, bgcolor: '#064e33' }}>
+                    <Avatar sx={{ m: 1, bgcolor: '#45B7A1' }}>
                         <ScreenLockPortraitIcon/>
                     </Avatar>
                     <Typography component="h1" variant="h5">
