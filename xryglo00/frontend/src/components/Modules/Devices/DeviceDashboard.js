@@ -55,8 +55,8 @@ const DeviceDashboard = () => {
                                 <CardActionArea sx={{height: "100%"}}>
                                     <Link to={`/Device/${data.type}/${data.id.id}`} style={{textDecoration: 'none', height: '100%'}}>
                                         <Card variant="outlined" align="center" sx={{height: "100%"}}>
-                                            <Paper elevation={0} sx={{backgroundColor: "#064e33", height: "60%"}}>
-                                                <Typography variant="h5" align="center" color="#ecfdf3" textAlign={"center"} sx={{paddingTop: "30px"}}>
+                                            <Paper elevation={0} sx={{backgroundColor: "#C9E5EA", height: "60%"}}>
+                                                <Typography variant="h5" align="center" color="#2C8878" textAlign={"center"} sx={{paddingTop: "30px", fontWeight: "bold"}}>
                                                     {data.label}
                                                 </Typography>
                                             </Paper>
