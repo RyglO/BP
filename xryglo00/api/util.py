@@ -106,7 +106,7 @@ def thingsboard_SetDeviceLabel(JWTtoken, data):
     headers = {
         "Content-Type": "application/json;",
         "X-Authorization": "Bearer " + JWTtoken}
-    response = post(BASE_ADDRESS + 'davice', json=data)
+    response = post(BASE_ADDRESS + 'device', json=data, headers=headers)
     return response
 
 def thingsboard_AddEditUser(JWTtoken, data):
@@ -114,12 +114,12 @@ def thingsboard_AddEditUser(JWTtoken, data):
     headers = {
         "Content-Type": "application/json;",
         "X-Authorization": "Bearer " + JWTtoken}
-    response = post(BASE_ADDRESS + 'user', json=data)
+    response = post(BASE_ADDRESS + 'user', json=data, headers=headers)
     return response
 
 def thingsboard_ChangePasswordCurrentUser(JWTtoken, data):
     headers = {
         "Content-Type": "application/json;",
         "X-Authorization": "Bearer " + JWTtoken}
-    response = post(BASE_ADDRESS + 'auth/changePassword')
+    response = post(BASE_ADDRESS + 'auth/changePassword', json=data, headers=headers)
     return response
