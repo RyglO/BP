@@ -123,3 +123,14 @@ def thingsboard_ChangePasswordCurrentUser(JWTtoken, data):
         "X-Authorization": "Bearer " + JWTtoken}
     response = post(BASE_ADDRESS + 'auth/changePassword', json=data, headers=headers)
     return response
+
+def thingsboard_GetDeviceStatus(JWTtoken, deviceType, deviceID):
+    headers = {
+        "Content-Type": "application/json;",
+        "X-Authorization": "Bearer " + JWTtoken}
+    parameters = {
+        'keys': 'active'
+    }
+    response = get(BASE_ADDRESS+'plugins/telemetry/'+deviceType+'/'+deviceID+'/values/attributes/SERVER_SCOPE', headers = headers, params=parameters)
+    print(response.json)
+    return response

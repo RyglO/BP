@@ -8,8 +8,6 @@ import Card from "@mui/material/Card";
 
 
 const Device_not_implemented = () => {
-console.log('banán')
-
 
 return(
     <Grid>

@@ -1,40 +1,50 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Auth from "../../../Auth";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { CardContent, Grid } from "@mui/material";
-import Typography from "@mui/material/Typography";
-import Card from "@mui/material/Card";
-import loadDataPoly from "../../../PolyAPIcall";
 import Device_Gateway from "./Device_Gateway";
 import Device_thermometer from "./Device_thermometer";
 import Device_not_implemented from "./Device_not_implemented";
+import DeviceDisconected from "./DeviceDisconected";
+
+
 const Device_General = () => {
+    const [deviceStatus, setDeviceStatus] = useState('loading')
 
-const {id, devicetype} = useParams();
+    const {id, devicetype} = useParams();
 
-let device_to_render;
+    const loadDeviceType = async (id, devicetype) => {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+                'Authorization': `Bearer ${Auth.getJwt()}`,
+            }, 
+            body: JSON.stringify({
+                'deviceType': 'DEVICE',
+                'deviceID': id,
+            })
+        }
 
-console.log(devicetype);
+        const isActive = await fetch("../../api/deviceStatus", requestOptions)
+        .then((response) => response.json()).then(data => data[0].value)
 
-switch (devicetype) {
-    case 'ESP32_OTA_ELMETER':
-        device_to_render = <Device_Gateway />
-        break;
-    case 'ESP32_OTA_SENSOR':    
-        device_to_render = <Device_thermometer />
-        break;
-    default:
-        device_to_render = <Device_not_implemented />
-        break;
+        setDeviceStatus(isActive ? devicetype : 'disconected')
     }
 
 
-    return (
-            <div>
-                {device_to_render}
-            </div>
+    useEffect(() => {
+        loadDeviceType(id, devicetype)
+    }, [])
+
+
+    return (            
+        <div>
+            {deviceStatus === 'loading' ?  <></> :
+            deviceStatus === 'ESP32_OTA_ELMETER' ?  <Device_Gateway /> : deviceStatus === 'ESP32_OTA_SENSOR' ? <Device_thermometer /> : 
+            deviceStatus === 'disconected' ? <DeviceDisconected /> : 
+            <Device_not_implemented />}
+        </div>
     )
-}
+    }
 
 export default Device_General

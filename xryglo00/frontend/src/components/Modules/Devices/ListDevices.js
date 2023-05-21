@@ -8,6 +8,7 @@ const ListDevices = () => {
     const [devices, setDevices] = useState([]);
     const [openDialog, setOpenDialog] = useState(false); 
     const [selectedDevice, setSelectedDevice] = useState(null);
+    const [deviceStatus, setDeviceStatus] = useState({});
 
     const handleButtonClick = (data) => {
         setOpenDialog(true);
@@ -33,10 +34,37 @@ const ListDevices = () => {
         fetch("api/users", requestOptions)
         .then((response) => 
             response.json())
-            .then((data) =>{
-            setDevices(data.data)
+            .then(async (data) =>{
+                setDevices(data.data)
+
+                setDeviceStatus((await Promise.all(
+                        data.data.map(async ({id}) => await getDeviceStatus(id.id)))).reduce(
+                        (accumulator, currentValue) => ({...accumulator, ...currentValue}),
+                        {}
+                    ))
+
+            
         }
         )
+    }
+
+    const getDeviceStatus = async (deviceID) => {
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+                'Authorization': `Bearer ${Auth.getJwt()}`,
+            }, 
+            body: JSON.stringify({
+                'deviceType': 'DEVICE',
+                'deviceID': deviceID,
+            })
+        }
+        return await fetch("api/deviceStatus", requestOptions)
+        .then((response) =>
+            response.json())
+            .then((data) => ({[deviceID]: data[0].value}))
+            
     }
 
     useEffect(() => {
@@ -79,7 +107,7 @@ const ListDevices = () => {
                                     <TableCell align="center">{data.name}</TableCell>
                                     <TableCell align="center">{data.label}</TableCell>
                                     <TableCell align="center">{data.id.entityType}</TableCell>
-                                    <TableCell align="center"></TableCell>
+                                    <TableCell align="center">{deviceStatus[data.id.id] ? 'Připojeno': 'Odpojeno'}</TableCell>
                                     <TableCell align="center">
                                         <Button variant="outlined" color="secondary" onClick={() => handleButtonClick(data)}>
                                             Upravit

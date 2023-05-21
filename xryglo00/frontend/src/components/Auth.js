@@ -37,16 +37,5 @@ class Auth {
 
     static isAuthenticated = () => Boolean(Auth.getJwt())
   }
-    //Might be usefull later
-    // static getUserIdFromJWT = (jwt: string) => {
-    //   const payload = (jwt.split('.') ?? [])[1]
-    //   if (!payload) {
-    //     return ''
-    //   }
-  
-    //   // id and userType is undefined for SSO users
-    //   const { id, userType, username } = JSON.parse(atob(payload))
-  
-    //   return `${userType ?? 'Manager'}:${id ?? username}`
-    // }
+
   export default Auth

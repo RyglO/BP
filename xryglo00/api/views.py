@@ -79,3 +79,11 @@ class ChangePasswordHandle(APIView):
         userdata = dct
         response = thingsboard_ChangePasswordCurrentUser(accessToken, userdata)
         return Response(response.json(), status=status.HTTP_200_OK)
+
+class GetDeviceStatusHandle(APIView):
+    def post(self, request, format=None):
+        dct = json.load(request)
+        print(dct)
+        accessToken = request.headers.get('Authorization', '').split(' ')[-1]
+        response = thingsboard_GetDeviceStatus(accessToken, dct["deviceType"], dct["deviceID"])
+        return Response(response.json())
