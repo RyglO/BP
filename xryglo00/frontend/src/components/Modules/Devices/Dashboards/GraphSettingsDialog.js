@@ -19,10 +19,6 @@ const GraphSettingsDialog = ({open, handleClose, currentSettings, saveSettings})
     const [intervalValue, setIntervalValue] = useState(currentSettings.intervalValue);
     const [historyValue, setHistoryValue] = useState(currentSettings.historyValue);
 
-    useEffect(() => {
-        console.log("current settings: ", currentSettings)
-    })
-
     const handleLiveChange = (event) => {
         setIsLive(event.target.checked)
     }
@@ -36,7 +32,6 @@ const GraphSettingsDialog = ({open, handleClose, currentSettings, saveSettings})
     }
 
     const handleSave = () => {
-        
         saveSettings({isLive, intervalValue, historyValue})
         handleClose();
     }

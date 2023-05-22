@@ -1,6 +1,6 @@
 
 from django.urls import path 
-from .views import main, LoginHandle, UsersHandle, DevicesHandle, ValuesHandle, CustomersHandle, UserInfoHandle, DeviceUserLabel, EditUserHandle, ChangePasswordHandle, GetDeviceStatusHandle
+from .views import main, LoginHandle, UsersHandle, DevicesHandle, ValuesHandle, CustomersHandle, UserInfoHandle, DeviceUserLabel, EditUserHandle, CreateUserHandle, ChangePasswordHandle, GetDeviceStatusHandle
 
 urlpatterns = [
     path('home', main),
@@ -11,7 +11,8 @@ urlpatterns = [
     path('customers', CustomersHandle.as_view()),
     path('userInfo', UserInfoHandle.as_view()),
     path('deviceLabel', DeviceUserLabel.as_view()),
-    path('postUser', EditUserHandle.as_view()),
+    path('editUser', EditUserHandle.as_view()),
+    path('createUser', CreateUserHandle.as_view()),
     path('changePassword', ChangePasswordHandle.as_view()),
     path('deviceStatus', GetDeviceStatusHandle.as_view())
 

@@ -5,6 +5,7 @@ import Device_Gateway from "./Device_Gateway";
 import Device_thermometer from "./Device_thermometer";
 import Device_not_implemented from "./Device_not_implemented";
 import DeviceDisconected from "./DeviceDisconected";
+import Device_Inverter from "./Device_Inverter";
 
 
 const Device_General = () => {
@@ -40,7 +41,9 @@ const Device_General = () => {
     return (            
         <div>
             {deviceStatus === 'loading' ?  <></> :
-            deviceStatus === 'ESP32_OTA_ELMETER' ?  <Device_Gateway /> : deviceStatus === 'ESP32_OTA_SENSOR' ? <Device_thermometer /> : 
+            deviceStatus === 'ESP32_OTA_ELMETER' ?  <Device_Gateway /> : 
+            deviceStatus === 'ESP32_OTA_SENSOR' ? <Device_thermometer /> :
+            deviceStatus === 'ESP32_OTA_INVERTER' ? <Device_Inverter /> :
             deviceStatus === 'disconected' ? <DeviceDisconected /> : 
             <Device_not_implemented />}
         </div>

@@ -1,12 +1,14 @@
 import { Button, Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Auth from "../../Auth";
-import AddEditUserDialog from "./AddUserDialog";
+import EditUserDialog from "./EditUserDialog";
+import CreateUserDialog from "./CreateUserDialog";
 
 const ListUsers = () => {
   
     const [users, setUsers] = useState([]);
     const [openDialogEdit, setOpenDialogEdit] = useState(false);
+    const [openDialogAdd, setOpenDialogAdd] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
 
     const handleButtonClick = (data) => {
@@ -15,8 +17,9 @@ const ListUsers = () => {
     };
   
     const handleClose = () => {
-        setSelectedUser(null);
-        setOpenDialogEdit(false);
+        setSelectedUser(null)
+        setOpenDialogEdit(false)
+        setOpenDialogAdd(false)
     };
 
     const loadUsers = async () => {
@@ -39,8 +42,6 @@ const ListUsers = () => {
             setUsers(data.data)
         })
     }
-    //Upravit a vytvořit API call na uživatele.
-  
     useEffect(() => {
       loadUsers()
     }, [])
@@ -49,16 +50,29 @@ const ListUsers = () => {
         if(selectedUser === userData)
         {
             return(
-                <AddEditUserDialog open={true} handleClose={handleClose} userData={userData} />
+                <EditUserDialog open={true} handleClose={handleClose} userData={userData} />
             )    
         }
     }
 
+    const handleNewUserclick = () => {
+        setOpenDialogAdd(true)
+    }
+
+    const renderAddDialog = () => {
+        if(openDialogAdd)
+            return(
+                <CreateUserDialog open={true} handleClose={handleClose}/>
+            )
+    }
+
+
   	return (
       <>
-        <Button variant='contained' sx={{ float: 'right', marginRight: "50px", marginTop: "10px" }} color="primary">
+        <Button variant='contained' sx={{ float: 'right', marginRight: "50px", marginTop: "10px" }} color="primary" onClick={() => handleNewUserclick()}>
         Přidat nového uživatele
-        </Button>      
+        </Button>
+        {renderAddDialog()}
         <Paper sx={{ margin: "50px 50px 50px 50px"}}>
             <TableContainer>
                 <Table>
@@ -73,7 +87,6 @@ const ListUsers = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {console.log(users)}
                         {
                         users.map((data) => (
                             <TableRow RowKey={data.name}  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>

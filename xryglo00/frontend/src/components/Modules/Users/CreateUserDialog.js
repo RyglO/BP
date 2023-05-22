@@ -1,28 +1,21 @@
-import { Dialog, DialogContent, DialogTitle, DialogActions, Button, FormGroup, InputLabel, TextField, Select, MenuItem } from "@mui/material";
+import { Dialog, DialogContent, DialogTitle, DialogActions, Button, FormGroup, InputLabel, TextField, Select, MenuItem, Snackbar, Slide } from "@mui/material";
 import React, { useState } from "react";
 import Auth from "../../Auth";
 
 
-const AddEditUserDialog = ({open, handleClose, userData}) => {
-    const[user, setUser] = useState(userData)
-    const[firstName, setFirstName] = useState(userData.firstName)
-    const[lastName, setLastName] = useState(userData.lastName)
-    const[email, setEmail] = useState(userData.email)
-    const[role, setRole] = useState(userData.authority)
+const CreateUserDialog = ({open, handleClose}) => {
+    const[firstName, setFirstName] = useState("")
+    const[lastName, setLastName] = useState("")
+    const[email, setEmail] = useState("")
+    const[role, setRole] = useState("")
+    const[creationFailed, setCreationFailed] = useState(false)
 
 
     const handleSave = () => {
-        saveUser()
-        handleClose()
+        createUser()
     }
     
-    const saveUser = () => {
-        userData.firstName = firstName
-        userData.lastName = lastName
-        userData.email = email
-        userData.authority = role
-
-        console.log(userData)
+    const createUser = () => {
 
         const requestOptions = {
             method: 'POST',
@@ -31,17 +24,34 @@ const AddEditUserDialog = ({open, handleClose, userData}) => {
                 'Authorization': `Bearer ${Auth.getJwt()}`,
             },
             body: JSON.stringify({
-                userData,
+                'email': email,
+                'authority': role,
+                'firstName': firstName,
+                'lastName': lastName,
+                'customerID': Auth.getCustomerID()
             }),
         };
-        fetch("api/postUser", requestOptions)
+        fetch("api/createUser", requestOptions)
+        .then((response) => 
+        response.json())
+         .then(async(data) =>{
+            console.log(data)   
+        if (data.status > 200) 
+            setCreationFailed(true)
+        else{
+            handleClose()
         }
+        })
+    }
 
+        const handleAlertClose = () => {
+            setCreationFailed(false);
+        }
 
 
     return(
         <Dialog open={open} onClose={handleClose} fullWidth={true}>
-            <DialogTitle>Nastavení uživatele</DialogTitle>
+            <DialogTitle>Vytvoření nového uživatele</DialogTitle>
             <DialogContent>
                 <FormGroup>
                     <InputLabel id="usernameLabel">Jméno</InputLabel>
@@ -49,9 +59,9 @@ const AddEditUserDialog = ({open, handleClose, userData}) => {
                     <InputLabel id="lastnameLabel">Přijmení</InputLabel>
                     <TextField fullWidth defaultValue={lastName} onChange={e => setLastName(e.target.value)}/>
                     <InputLabel id="emailLabel">Email</InputLabel>
-                    <TextField fullWidth defaultValue={email} onChange={e => setEmail(e.target.value)}/>
+                    <TextField required fullWidth defaultValue={email} onChange={e => setEmail(e.target.value)} error={creationFailed}/>
                     <InputLabel id="roleLabel">Role</InputLabel>
-                    <Select value={role} onChange={e => setRole(e.target.value)}>
+                    <Select required value={role} onChange={e => setRole(e.target.value)}>
                             <MenuItem value={"CUSTOMER_USER"}>Uživatel</MenuItem> 
                             <MenuItem value={"TENANT_ADMIN"}>Administrátor</MenuItem>
                     </Select>
@@ -65,7 +75,8 @@ const AddEditUserDialog = ({open, handleClose, userData}) => {
                     Uložit
                 </Button>
             </DialogActions>
+            <Snackbar open={creationFailed} onClose={handleAlertClose} autoHideDuration={3000} message="Nastala chyba při vytváření uživatele" TransitionComponent={Slide}></Snackbar>
         </Dialog>
     )
 }
-export default AddEditUserDialog
+export default CreateUserDialog

@@ -20,9 +20,6 @@ const Device_Gateway = () => {
 
     const {id} = useParams(); 
 
-    const formatXAxis = (tickFormat) => {
-        return moment.unix(tickFormat).format("DD/MM");
-      };
 
     let settings = {
         isLive: false,
@@ -34,7 +31,6 @@ const Device_Gateway = () => {
 
     const settingsChanged = (settingsInput) => {
         settings = settingsInput
-        console.log('new settings set: ', settings)
         refresh()
     }
     const handleButtonClick = () => {
@@ -52,8 +48,6 @@ const Device_Gateway = () => {
             refreshID = setInterval(() => refresh(), 5000) 
     }
     const renderDialog = () => {
-
-        console.log(settings)
         return(
             <GraphSettingsDialog open={true} handleClose={handleClose} currentSettings={settings} saveSettings={settingsChanged}/>
         )
@@ -106,21 +100,12 @@ const Device_Gateway = () => {
         loadDataPoly(id, 'import_active_power', 'ASC', '86400000', 'AVG', new Date().setHours(date.getHours() - (7*24)), Date.now()).then(response => {
             const keys = Object.keys(response)
             setDataHistImport(response[keys[0]].map((_,i) => keys.reduce((acc,k) => ({...acc, [k]:Number((response[k][i+1] == null ? 0 : response[k][i+1].value - response[k][i].value)).toFixed(1)}),{time:(new Date(response[keys[0]][i].ts)).toLocaleString("cs-CZ")})))
-            console.log(response)
         })
     }
 
     useEffect(() => {
         loadAll('voltage_l1,voltage_l2,voltage_l3')
     },[])
-    useEffect(() => console.log(dataAC), [setDataAC,dataAC])
-    useEffect(() => console.log(dataACactive), [setDataACactive,dataACactive])
-    useEffect(() => console.log(dataACcurrent), [setDataACcurrent,dataACcurrent])
-    useEffect(() => console.log(dataExport), [setDataExport,dataExport])
-    useEffect(() => console.log(dataImport), [setDataImport,dataImport])
-    useEffect(() => console.log(dataHistImport), [setDataHistImport,dataHistImport])
-    useEffect(() => console.log(dataHistExport), [setDataHistExport,dataHistExport])
-
     
 
     return (

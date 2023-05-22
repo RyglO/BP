@@ -83,9 +83,9 @@ const ListDevices = () => {
 
     return(
         <>
-        <Button variant='contained' sx={{ float: 'right', marginRight: "50px", marginTop: "10px" }} color="primary">
+        {/* <Button variant='contained' sx={{ float: 'right', marginRight: "50px", marginTop: "10px" }} color="primary">
             Přidat nové zařízení
-        </Button>        
+        </Button>         */}
         <Paper sx={{ margin: "50px 50px 50px 50px" }} elevation={3}>
                 <TableContainer>
                     <Table>

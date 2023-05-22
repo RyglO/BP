@@ -18,8 +18,6 @@ const EditDeviceDialog = ({open, handleClose, data}) => {
     
     const postNewLabel = () => {
         data.label = userLabel
-
-        console.log(userLabel)
         const requestOptions = {
             method: 'POST',
             headers: {

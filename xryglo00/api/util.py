@@ -12,13 +12,11 @@ def thingsboard_login(email, password):
         'username': email,
         'password': password
     }).json()
-    print(response)
     return response
 
 def getAllDevices(JFTtoken, userSearch):
     response = thingsboard_getUsers(JFTtoken, userSearch)
     data = json.loads(response.text)
-    print(data)
 
     idTennant = None
     ids = data['data']
@@ -26,9 +24,7 @@ def getAllDevices(JFTtoken, userSearch):
     if ids and isinstance(ids, list):
         for id in ids:
             idTennant = id['customerId'].get('id')
-    #print(idTennant)
     response = thingsboard_GetDevices(JFTtoken, idTennant)
-    print(response)
     return response
 
 
@@ -109,12 +105,28 @@ def thingsboard_SetDeviceLabel(JWTtoken, data):
     response = post(BASE_ADDRESS + 'device', json=data, headers=headers)
     return response
 
-def thingsboard_AddEditUser(JWTtoken, data):
-    print("JWT: "+ JWTtoken)
+def thingsboard_EditUser(JWTtoken, data):
     headers = {
         "Content-Type": "application/json;",
         "X-Authorization": "Bearer " + JWTtoken}
     response = post(BASE_ADDRESS + 'user', json=data, headers=headers)
+    return response
+
+def thingsboard_CreateUser(JWTtoken, email, firstName, lastName, authority, ownerId):
+    headers = {
+        "Content-Type": "application/json;",
+        "X-Authorization": "Bearer " + JWTtoken}
+    body = {
+        'email': email,
+        'authority': authority,
+        'firstName': firstName,
+        'lastName': lastName,
+        'ownerId': ownerId
+    }
+    parameters = {
+        'sendActivationMail': True
+    }
+    response = post(BASE_ADDRESS + 'user', json=body, headers=headers, params=parameters)
     return response
 
 def thingsboard_ChangePasswordCurrentUser(JWTtoken, data):
@@ -132,5 +144,4 @@ def thingsboard_GetDeviceStatus(JWTtoken, deviceType, deviceID):
         'keys': 'active'
     }
     response = get(BASE_ADDRESS+'plugins/telemetry/'+deviceType+'/'+deviceID+'/values/attributes/SERVER_SCOPE', headers = headers, params=parameters)
-    print(response.json)
     return response

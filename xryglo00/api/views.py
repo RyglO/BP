@@ -61,7 +61,6 @@ class DeviceUserLabel(APIView):
         accessToken = request.headers.get('Authorization', '').split(' ')[-1]
         data = dct["data"]
         response = thingsboard_SetDeviceLabel(accessToken, data)
-        print(response.json())
         return Response(response.json(), status=status.HTTP_200_OK)
 
 class EditUserHandle(APIView):
@@ -69,9 +68,19 @@ class EditUserHandle(APIView):
         dct = json.load(request)
         accessToken = request.headers.get('Authorization', '').split(' ')[-1]
         userdata = dct["userData"]
-        response = thingsboard_AddEditUser(accessToken, userdata)
+        response = thingsboard_EditUser(accessToken, userdata)
         return Response(response.json(), status=status.HTTP_200_OK)
-    
+
+class CreateUserHandle(APIView):
+    def post(self, request, format=None):
+        dct = json.load(request)
+        accessToken = request.headers.get('Authorization', '').split(' ')[-1]
+        ownerId = {}
+        ownerId['id'] = dct['customerID']
+        ownerId['entityType'] = "CUSTOMER"
+        response = thingsboard_CreateUser(accessToken, dct["email"], dct["firstName"], dct["lastName"], dct["authority"], ownerId)
+        return Response(response.json())
+
 class ChangePasswordHandle(APIView):
     def post(self, request, format=None):
         dct = json.load(request)
@@ -83,7 +92,6 @@ class ChangePasswordHandle(APIView):
 class GetDeviceStatusHandle(APIView):
     def post(self, request, format=None):
         dct = json.load(request)
-        print(dct)
         accessToken = request.headers.get('Authorization', '').split(' ')[-1]
         response = thingsboard_GetDeviceStatus(accessToken, dct["deviceType"], dct["deviceID"])
         return Response(response.json())

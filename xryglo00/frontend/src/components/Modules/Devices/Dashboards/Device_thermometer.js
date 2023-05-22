@@ -31,7 +31,6 @@ const Device_thermometer = () => {
 
     const settingsChanged = (settingsInput) => {
         settings = settingsInput
-        console.log('new settings set: ', settings)
         refresh()
     }
 
@@ -77,12 +76,10 @@ const Device_thermometer = () => {
             setDataThermo(response[keys[0]].map((_,i) => keys.reduce((acc,k) => ({...acc, [k]:Number(response[k][i].value).toFixed(2)}),{time:(new Date(response[keys[0]][i].ts).toLocaleString("cs-CZ"))})))
         })
     }
-    useEffect(() => console.log(dataThermo), [setDataThermo, dataThermo])
 
 
     const renderDialog = () => {
 
-        console.log(settings)
         return(
             <GraphSettingsDialog open={true} handleClose={handleClose} currentSettings={settings} saveSettings={settingsChanged}/>
         )
