@@ -170,7 +170,7 @@ const Device_Inverter = () => {
                             <Typography component="h6" variant="button" align="left">Teplota baterie a měniče</Typography> 
                         </Grid>
                         <Grid item>
-                            <IconButton sx={{padding: "0px 0px 0px 0px", color: "black"}} onClick={() => csvDownload({data: dataTeplota, headers: ["Time", "Měnič (bod 1)", "Měnič (bod 2)","Měnič (bod 3)","Teplota baterie"]})}>
+                            <IconButton sx={{padding: "0px 0px 0px 0px", color: "black"}} onClick={() => csvDownload({data: dataTeplota, headers: ["Time", "Teplota baterie", "Měnič (bod 1)", "Měnič (bod 2)","Měnič (bod 3)"]})}>
                                 <FileDownloadIcon/>    
                             </IconButton>
                         </Grid>

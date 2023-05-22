@@ -8,6 +8,7 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import Card from "@mui/material/Card";
 import loadDataPoly from "../../../PolyAPIcall";
 import GraphSettingsDialog from './GraphSettingsDialog'
+import csvDownload from 'json-to-csv-export'
 
 const Device_thermometer = () => {
 
@@ -95,7 +96,7 @@ const Device_thermometer = () => {
                                     <Typography component="h6" variant="button" align="left">Teplota</Typography> 
                                 </Grid>
                                 <Grid item>
-                                    <IconButton sx={{padding: "0px 0px 0px 0px", color: "black"}} onClick={() => csvDownload({data: dataExport, headers: ["Time", "Export Power"]})}>
+                                    <IconButton sx={{padding: "0px 0px 0px 0px", color: "black"}} onClick={() => csvDownload({data: dataThermo, headers: ["Time", "Teplota"]})}>
                                         <FileDownloadIcon/>    
                                     </IconButton>
                                 </Grid>
