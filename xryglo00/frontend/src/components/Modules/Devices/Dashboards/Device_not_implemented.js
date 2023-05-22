@@ -1,22 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { CardContent, Grid } from "@mui/material";
-import Typography from "@mui/material/Typography";
-import Card from "@mui/material/Card";
+import React from "react";
+import {Grid, Box, Link, Typography } from "@mui/material";
 
 
 
 const Device_not_implemented = () => {
 
 return(
-    <Grid>
-        <Grid item xs align="center">
-            <Card>
-                <CardContent>
-                    <Typography component="h5" variant="h5">SorryJako, ale toto zařízení zatím není podporované</Typography>
-                </CardContent>
-            </Card>
+    <Grid container spacing={8} direction="row" alignItems="center" justifyContent="center">
+        <Grid item xs={12} md={6}>
+            <Box sx={{height:"100%", display: "flex"}} alignItems={"center"} justifyContent={"center"} flexDirection={"column"}>
+            <Typography sx={{verticalAlign:"middle", marginTop: "30px"}} variant="h4">
+                Toto zařízení zatím není podporováno.
+                </Typography>
+                <Link href="/" underline="always" sx={{marginTop: "60px"}}>
+                    <Typography variant="button">
+                        Hlavní stránka
+                    </Typography>
+                </Link> 
+            </Box>
         </Grid>
     </Grid>
 )

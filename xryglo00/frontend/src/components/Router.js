@@ -33,7 +33,7 @@ const Router = () => {
             }),
         };
 
-        fetch("api/userInfo", requestOptions)
+        fetch("../../api/userInfo", requestOptions)
         .then((response) => response.json()).then(data =>{   
             Auth.setCustomerId(data.customerId.id)
             authContext.setIsAdmin(data.authority === "TENANT_ADMIN")
