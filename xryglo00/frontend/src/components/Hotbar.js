@@ -14,10 +14,8 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import Auth from './Auth';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { Link } from 'react-router-dom';
 
 const pages = ['Hlavní menu'];
-const settings = ['Profil', 'Logout'];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);

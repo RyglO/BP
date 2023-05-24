@@ -5,13 +5,11 @@ import { CardContent, Grid, Box, Button, Card, Typography, IconButton } from "@m
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import loadDataPoly from "../../../PolyAPIcall";
 import GraphSettingsDialog from './GraphSettingsDialog'
-import moment from "moment"
 import csvDownload from 'json-to-csv-export'
 
 const Device_Gateway = () => {
 
     const [dataAC, setDataAC] = useState([])
-    const [dataACcurrent, setDataACcurrent] = useState([])
     const [dataACactive, setDataACactive] = useState([])
     const [dataImport, setDataImport] = useState([])
     const [dataExport, setDataExport] = useState([])
@@ -74,11 +72,6 @@ const Device_Gateway = () => {
         loadDataPoly(id, 'voltage_l1,voltage_l2,voltage_l3', 'ASC', (settings.intervalValue*60000).toString(), 'AVG', new Date().setMinutes(date.getMinutes() - (settings.historyValue)), Date.now()).then(response => {
             const keys = Object.keys(response)
             setDataAC(response[keys[0]].map((_,i) => keys.reduce((acc,k) => ({...acc, [k]:Number(response[k][i].value).toFixed(2)}),{time:(new Date(response[keys[0]][i].ts).toLocaleString("cs-CZ"))})))
-        })
-        loadDataPoly(id, 'current_l1,current_l2,current_l3', 'ASC', (settings.intervalValue*60000).toString(), 'AVG', new Date().setMinutes(date.getMinutes() - (settings.historyValue)), Date.now()).then(response => {
-            const keys = Object.keys(response)
-            setDataACcurrent(response[keys[0]].map((_,i) => keys.reduce((acc,k) => ({...acc, [k]:Number(response[k][i].value).toFixed(2)}),{time:(new Date(response[keys[0]][i].ts).toLocaleString("cs-CZ"))})))
-            
         })
         loadDataPoly(id, 'power_l1,power_l2,power_l3', 'ASC', settings.intervalValue*60000, 'AVG', new Date().setMinutes(date.getMinutes() - (settings.historyValue)), Date.now()).then(response => {
             const keys = Object.keys(response)

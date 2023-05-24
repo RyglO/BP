@@ -1,24 +1,15 @@
-import React, {Component, useState, useContext} from "react";
+import React, { useState} from "react";
 import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import FormHelperText from "@mui/material/FormHelperText";
-import FormControl from "@mui/material/FormControl";
-import { Navigate, useNavigate } from "react-router-dom";
 import Auth from "./Auth";
-import AuthWarning from "./AuthWarning";
-import { Avatar, Container, Box, Snackbar, Alert, Fade, Slide } from "@mui/material";
+import { Avatar, Container, Box, Snackbar, Slide } from "@mui/material";
 import ScreenLockPortraitIcon from '@mui/icons-material/ScreenLockPortrait';
-import { AuthContext } from "./AuthContetxt";
-
-
 
 
 const LoginPage = () => {
     const[email, setEmail ] = useState("");
     const[password, setPassword] = useState("");
-    const[status, setStatus] = useState("");
     const[loginSuccess, setLoginSucess] = useState(false);
     const[loginFailed, setLoginFailed] = useState(false);
 
@@ -39,7 +30,6 @@ const LoginPage = () => {
          .then(async(data) =>{   
         if (data.status > 200) 
             setLoginFailed(true)
-            //tady volat
         else{
             Auth.setJwt(data.token)
             Auth.setUserName(email.substring(0, email.indexOf('@')))

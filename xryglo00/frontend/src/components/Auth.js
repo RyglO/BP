@@ -1,5 +1,3 @@
-import { redirect } from "react-router-dom"
-
 const AUTH_TOKEN_NAME = "JWT"
 
 class Auth {

@@ -1,13 +1,9 @@
-import React, {Component, useEffect, useState} from "react";
-import Button from '@mui/material/Button';
+import React, {useEffect, useState} from "react";
 import Grid from '@mui/material/Grid';
 import Typography from "@mui/material/Typography";
-import TextField from "@mui/material/TextField";
-import FormHelperText from "@mui/material/FormHelperText";
-import FormControl from "@mui/material/FormControl";
 import Auth from "../../Auth";
 import { Link } from "react-router-dom"; 
-import { CardActions, Card, Paper, CardActionArea } from "@mui/material";
+import { Card, Paper, CardActionArea } from "@mui/material";
 import { Container } from "@mui/system";
 
 const DeviceDashboard = () => {
@@ -71,7 +67,6 @@ const DeviceDashboard = () => {
                     ))}
                 </Grid>
         </Container>
-            /* <Button variant='contained' onClick={loadDevices}> Načti dostupná zařízení </Button> */
     )
 }
 

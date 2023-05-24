@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Auth from "../../../Auth";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { Button, CardContent, Grid, IconButton, Dialog, DialogTitle, DialogContent, Paper} from "@mui/material";
+import { Button, CardContent, Grid, IconButton} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import Card from "@mui/material/Card";
@@ -13,12 +12,6 @@ import csvDownload from 'json-to-csv-export'
 const Device_thermometer = () => {
 
     const [dataThermo, setDataThermo] = useState([])
-
-    //const [settings[isLive, intervalValue, historyValue}, setSettings] = useState({isLive: false, intervalValue: 5, historyValue: 1440})
-
-    // const [isLive, setIsLive] = useState(false)
-    // const [intervalValue, setIntervalValue] = useState(5)
-    // const [historyValue, setHistoryValue] = useState(1440)
     let refreshID = null
 
     let settings = {
@@ -35,22 +28,13 @@ const Device_thermometer = () => {
         refresh()
     }
 
-    const handleVisibilityChange = () => {
-        if (document.hidden) {
-          document.title = "Vrať se prosím <3!";
-        } else {
-          document.title = "Díky"; 
-        }
-      };
-    
-
     const handleButtonClick = () => {
-        setOpenDialog(true);
-    };
+        setOpenDialog(true)
+    }
   
     const handleClose = () => {
-        setOpenDialog(false);
-    };
+        setOpenDialog(false)
+    }
 
     const refresh = () => {
         clearInterval(refreshID)
@@ -61,13 +45,7 @@ const Device_thermometer = () => {
         
     }
     useEffect(() => {
-            document.title = "Teploměr";
-            document.addEventListener('visibilitychange', handleVisibilityChange);
-            refresh()
-            return () => {
-            // remove the event listener when the component unmounts
-            document.removeEventListener('visibilitychange', handleVisibilityChange);
-            };
+        refresh()
     }, [])
 
     const loadData = () => {

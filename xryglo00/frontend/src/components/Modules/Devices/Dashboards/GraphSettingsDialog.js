@@ -1,18 +1,15 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {Dialog} from "@mui/material";
 import {DialogTitle} from "@mui/material";
 import {DialogContent} from "@mui/material";
 import {DialogActions} from "@mui/material";
 import {Button} from "@mui/material";
 import {Switch} from "@mui/material";
-import {Slider} from "@mui/material";
-import {FormControl} from "@mui/material";
 import {InputLabel} from "@mui/material";
 import {Select} from "@mui/material";
 import {MenuItem} from "@mui/material";
 import {FormGroup} from "@mui/material";
 import {FormControlLabel} from "@mui/material";
-import { Form } from "react-router-dom";
 
 const GraphSettingsDialog = ({open, handleClose, currentSettings, saveSettings}) => {
     const [isLive, setIsLive] = useState(currentSettings.isLive );
