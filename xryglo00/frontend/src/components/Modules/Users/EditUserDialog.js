@@ -26,7 +26,7 @@ const EditUserDialog = ({open, handleClose, userData}) => {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
-                'Authorization': `Bearer ${Auth.getJwt()}`,
+                'X-Authorization': `Bearer ${Auth.getJwt()}`,
             },
             body: JSON.stringify({
                 userData,

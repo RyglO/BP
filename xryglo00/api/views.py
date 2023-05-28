@@ -58,7 +58,7 @@ class DeviceUserLabel(APIView):
     def post(self, request, format=None):
         dct = json.load(request)
         response = None
-        accessToken = request.headers.get('Authorization', '').split(' ')[-1]
+        accessToken = request.headers.get('X-Authorization', '').split(' ')[-1]
         data = dct["data"]
         response = thingsboard_SetDeviceLabel(accessToken, data)
         return Response(response.json(), status=status.HTTP_200_OK)
@@ -66,7 +66,7 @@ class DeviceUserLabel(APIView):
 class EditUserHandle(APIView):
     def post(self, request, format=None):
         dct = json.load(request)
-        accessToken = request.headers.get('Authorization', '').split(' ')[-1]
+        accessToken = request.headers.get('X-Authorization', '').split(' ')[-1]
         userdata = dct["userData"]
         response = thingsboard_EditUser(accessToken, userdata)
         return Response(response.json(), status=status.HTTP_200_OK)
@@ -74,7 +74,7 @@ class EditUserHandle(APIView):
 class CreateUserHandle(APIView):
     def post(self, request, format=None):
         dct = json.load(request)
-        accessToken = request.headers.get('Authorization', '').split(' ')[-1]
+        accessToken = request.headers.get('X-Authorization', '').split(' ')[-1]
         ownerId = {}
         ownerId['id'] = dct['customerID']
         ownerId['entityType'] = "CUSTOMER"
@@ -84,7 +84,7 @@ class CreateUserHandle(APIView):
 class ChangePasswordHandle(APIView):
     def post(self, request, format=None):
         dct = json.load(request)
-        accessToken = request.headers.get('Authorization', '').split(' ')[-1]
+        accessToken = request.headers.get('X-Authorization', '').split(' ')[-1]
         userdata = dct
         response = thingsboard_ChangePasswordCurrentUser(accessToken, userdata)
         return Response(response.json(), status=status.HTTP_200_OK)
@@ -92,6 +92,6 @@ class ChangePasswordHandle(APIView):
 class GetDeviceStatusHandle(APIView):
     def post(self, request, format=None):
         dct = json.load(request)
-        accessToken = request.headers.get('Authorization', '').split(' ')[-1]
+        accessToken = request.headers.get('X-Authorization', '').split(' ')[-1]
         response = thingsboard_GetDeviceStatus(accessToken, dct["deviceType"], dct["deviceID"])
         return Response(response.json())
